@@ -1,43 +1,36 @@
-# Load app — standalone web build
+# APS Load — standalone web build
 
 A self-contained copy of the **Athlete Load Decision Tool** (Expo Router app,
 "ATPRX Athlete Center") set up to build as a static web app and deploy as its
 own Vercel project.
 
+**Open access** — there is no login/account system. All assessment history is
+stored locally on-device (`AsyncStorage`), nothing is synced to a backend.
+
 It is a *copy*, not a workspace package: it has no `@workspace/*` dependencies,
-no pnpm-workspace linkage, and its own lockfile. Lift the directory out and it
-is a complete repo.
+no pnpm-workspace linkage, and its own lockfile. It is already a complete repo.
 
-## Making it its own repo
+## Deploying to Vercel
 
-```bash
-cp -R load-app-web ~/load-app && cd ~/load-app && git init && git add -A && git commit -m "Initial commit"
-```
-
-Then push to GitHub and import the repo in Vercel. `vercel.json` supplies the
-build settings, so no framework preset is needed — leave Vercel's framework
-detection on "Other".
+Push this repo to GitHub (already done if you're reading this from there),
+then import it in Vercel. `vercel.json` supplies the build settings, so no
+framework preset is needed — leave Vercel's framework detection on "Other".
 
 ## Environment variables
 
+Optional — the app runs fully standalone with no environment variables set.
 Set these in Vercel (Project → Settings → Environment Variables) and locally in
-`.env` (see `.env.example`). `EXPO_PUBLIC_*` values are inlined into the client
-bundle at build time, so they must be public-safe and a rebuild is required
-after changing them.
+`.env` (see `.env.example`) only if you want to point it at a backend API.
+`EXPO_PUBLIC_*` values are inlined into the client bundle at build time, so
+they must be public-safe and a rebuild is required after changing them.
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY` | yes | Clerk frontend key (`pk_test_…` / `pk_live_…`). The app renders a blank splash until Clerk loads, so a valid key is needed for anything to show. |
-| `EXPO_PUBLIC_API_URL` | no | Full origin of the API server, e.g. `https://api.example.com`. Unset → the app runs on local storage only. |
-| `EXPO_PUBLIC_DOMAIN` | no | Bare-domain fallback for the above (`https://` is prepended). Kept for parity with the monorepo build. |
-| `EXPO_PUBLIC_CLERK_PROXY_URL` | no | Only if Clerk is fronted by your own domain. |
+| `EXPO_PUBLIC_API_URL` | no | Full origin of an API server, e.g. `https://api.example.com`. Unset (the default) → the app runs on local storage only. |
+| `EXPO_PUBLIC_DOMAIN` | no | Bare-domain fallback for the above (`https://` is prepended). |
 
-Two things to set up on the API side once this is deployed:
-
-- **CORS** — the API server must allow the Vercel origin, since the web app now
-  calls it cross-origin.
-- **Clerk** — add the Vercel domain to the allowed origins / redirect URLs in
-  the Clerk dashboard.
+If you do wire up an API, its CORS config must allow the Vercel origin, since
+the web app would call it cross-origin.
 
 ## Commands
 
@@ -49,16 +42,17 @@ npm run build      # static web export into dist/
 npm run typecheck  # tsc --noEmit
 ```
 
-## How it differs from `artifacts/mobile`
+## How it differs from the Load app monorepo's `artifacts/mobile`
 
+- No Clerk/auth — the sign-in flow, account settings, and subscription
+  paywall were removed. `SubscriptionContext` reports everyone as
+  subscribed so nothing is gated; `HistoryContext` is local-storage-only.
 - `@workspace/api-client-react` is vendored into `lib/api-client/`; imports use
   the `@/lib/api-client` path alias. Its `index.ts` also re-exports
   `customFetch`, which the upstream package's barrel did not export even though
   `services/*Api.ts` import it from there.
 - API base URL reads `EXPO_PUBLIC_API_URL` first, falling back to
   `EXPO_PUBLIC_DOMAIN`. Upstream only understood the Replit-supplied domain.
-- Clerk's native `tokenCache` (backed by `expo-secure-store`, which has no web
-  implementation) is not passed on web; Clerk uses browser storage there.
 - `app.json` declares `web.bundler: metro` and `web.output: single` (SPA), and
   drops the Replit `origin` from the expo-router plugin.
 - `hooks/useColors.ts` selects the palette directly instead of via a cast that
@@ -68,11 +62,12 @@ npm run typecheck  # tsc --noEmit
   declared explicitly (pnpm hoisting supplied it implicitly in the monorepo).
 
 Native builds still work from here (`npm run dev` serves iOS/Android too), but
-`artifacts/mobile` remains the source of truth for the Replit deployment —
-changes made in either place have to be carried across by hand.
+the Load app monorepo remains the source of truth for the Replit/Clerk-backed
+deployment — changes made in either place have to be carried across by hand.
 
 ## Verified
 
-`npm run build` produces `dist/` (a ~3.4 MB JS bundle plus assets), and the
-export was served and loaded in a browser: React mounts and no runtime errors
-are thrown. Rendering past the splash needs a real Clerk key.
+`npm run build` produces `dist/` (a ~3 MB JS bundle plus assets), and the
+export was served and loaded in a browser: it goes straight into onboarding
+and the app's Home/History/Learn/Settings tabs, no login screen, no console
+errors.
