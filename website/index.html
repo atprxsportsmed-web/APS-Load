@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!--PAGE-->
+<title>18 Golf Performance Club</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="18 Golf Performance Club, downtown Chattanooga: hitting stations, golf-specific training, testing and recovery under one roof, open 24/7 to members.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap">
+<style>
+/* Layout: alternating cream and navy bands like the deck; one editorial column, pricing as a ledger + an estimator, inquiry form last. */
+:root {
+  --navy: #0f1c26;      /* deck dark */
+  --navy-2: #16293a;    /* deck card on dark */
+  --cream: #f4f1e9;     /* deck light */
+  --paper: #fbf9f4;     /* deck card on light */
+  --gold: #c9a44c;      /* deck accent */
+  --gold-ink: #7a5f12;  /* accent text on light */
+  --green: #2e6b57;
+  --rule: #d9d3c3;
+  --ink: #0f1c26;
+  --ink-2: #33414c;
+  --ink-3: #5c6670;
+
+  --bg: var(--cream);
+  --surface: var(--paper);
+  --fg: var(--ink);
+  --fg-2: var(--ink-2);
+  --fg-3: var(--ink-3);
+  --line: var(--rule);
+  --eyebrow: var(--gold-ink);
+  --band: var(--navy);
+  --band-card: var(--navy-2);
+  --band-fg: #f4f1e9;
+  --band-fg-2: #d8d2c4;
+  --band-fg-3: #9faab4;
+  --field: #ffffff;
+  --ok: #2e6b57;
+  --err: #a33a2a;
+
+  --display: "EB Garamond", Georgia, "Times New Roman", serif;
+  --body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --s-1: clamp(2.6rem, 6vw + 1rem, 5.6rem);
+  --s-2: clamp(2rem, 3vw + 1rem, 3.2rem);
+  --s-3: 1.6rem;
+  --s-4: 1.0625rem;
+  --s-5: 0.8125rem;
+  --wrap: 1180px;
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b151d; --surface: #13222f; --fg: #f1ede3; --fg-2: #cfc9bb; --fg-3: #98a3ad;
+    --line: #26394a; --eyebrow: #d4b25e; --band: #071017; --band-card: #13222f;
+    --field: #0f1c26; --ok: #6fbf9f; --err: #f08a78; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b151d; --surface: #13222f; --fg: #f1ede3; --fg-2: #cfc9bb; --fg-3: #98a3ad;
+  --line: #26394a; --eyebrow: #d4b25e; --band: #071017; --band-card: #13222f;
+  --field: #0f1c26; --ok: #6fbf9f; --err: #f08a78; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 var(--s-4)/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--band); }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; line-height: 1.08; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.band { background: var(--band); color: var(--band-fg); }
+.sec { padding-block: clamp(64px, 9vw, 120px); }
+.eyebrow { font: 500 var(--s-5)/1 var(--body); letter-spacing: .22em; text-transform: uppercase; color: var(--eyebrow); }
+.band .eyebrow { color: var(--gold); }
+.lede { font-size: 1.2rem; color: var(--fg-2); max-width: 62ch; }
+.band .lede { color: var(--band-fg-2); }
+.head { display: flex; flex-direction: column; gap: 18px; margin-bottom: clamp(36px, 5vw, 56px); max-width: 800px; }
+.head h2 { font-size: var(--s-2); }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 24px; border-radius: 999px; border: 1px solid transparent; font: 500 1rem/1 var(--body); text-decoration: none; cursor: pointer; transition: background .2s, color .2s, border-color .2s, transform .2s; }
+.btn-gold { background: var(--gold); color: #0f1c26; }
+.btn-gold:hover { background: #d8b65f; }
+.btn-ghost { border-color: currentColor; background: transparent; color: inherit; }
+.btn-ghost:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+.btn:active { transform: translateY(1px); }
+
+/* Nav */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--band) 94%, transparent); backdrop-filter: blur(8px); color: var(--band-fg); border-bottom: 1px solid #ffffff14; }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand-mark { font: 500 1.9rem/1 var(--display); color: var(--gold); }
+.brand-name { font: 500 .78rem/1.15 var(--body); letter-spacing: .18em; text-transform: uppercase; }
+.nav-links { display: flex; gap: 28px; font-size: .95rem; }
+.nav-links a { text-decoration: none; color: var(--band-fg-2); }
+.nav-links a:hover { color: var(--band-fg); }
+.nav .btn { min-height: 40px; padding: 0 18px; font-size: .9rem; }
+@media (max-width: 860px) { .nav-links { display: none; } }
+
+/* Hero */
+.hero { padding-block: clamp(56px, 8vw, 104px) clamp(56px, 8vw, 96px); position: relative; overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+.hero h1 { font-size: var(--s-1); letter-spacing: -.01em; }
+.hero h1 em { color: var(--gold); font-style: italic; }
+.hero-copy { display: flex; flex-direction: column; gap: 26px; min-width: 0; }
+.hero-sub { font: italic 400 clamp(1.3rem, 1.2vw + 1rem, 1.7rem)/1.35 var(--display); color: #e6e0d2; max-width: 34ch; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-facts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: .9rem; color: var(--band-fg-3); }
+.hero-facts span::before { content: "·"; margin-right: 22px; color: var(--gold); }
+.hero-facts span:first-child::before { content: none; }
+@media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+
+/* 18 Profile card */
+.profile { background: var(--band-card); border: 1px solid #ffffff12; border-radius: 18px; padding: 26px; display: flex; flex-direction: column; gap: 18px; min-width: 0; box-shadow: 0 30px 60px -30px #000a; }
+.profile-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.profile-top h3 { font-size: 1.6rem; }
+.tag { font: 500 .7rem/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--band-fg-3); border: 1px solid #ffffff22; padding: 6px 9px; border-radius: 999px; white-space: nowrap; }
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #ffffff14; border-radius: 12px; overflow: hidden; }
+.metric { background: var(--band-card); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+.metric b { font: 500 1.9rem/1 var(--display); font-variant-numeric: tabular-nums; color: var(--band-fg); }
+.metric small { font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--band-fg-3); }
+.metric i { font-style: normal; font-size: .8rem; color: #8fd0b3; }
+.bars { display: flex; flex-direction: column; gap: 10px; }
+.bar { display: grid; grid-template-columns: 110px 1fr 36px; align-items: center; gap: 12px; font-size: .82rem; color: var(--band-fg-2); }
+.bar-track { height: 6px; background: #ffffff14; border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--gold); border-radius: 3px; transform-origin: left; animation: grow 1.2s cubic-bezier(.2,.7,.2,1) both; }
+.bar span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+@keyframes grow { from { transform: scaleX(.15); } to { transform: scaleX(1); } }
+.profile-foot { font-size: .78rem; color: var(--band-fg-3); border-top: 1px solid #ffffff14; padding-top: 14px; }
+
+/* Problem / solution ledger */
+.ledger { border-top: 1px solid var(--line); }
+.ledger-row { display: grid; grid-template-columns: 70px 1fr 1fr; gap: 24px 40px; padding-block: 30px; border-bottom: 1px solid var(--line); align-items: start; }
+.ledger-row .q { font: 500 .75rem/1.6 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--fg-3); padding-top: 6px; }
+.ledger-row h3 { font-size: var(--s-3); display: flex; flex-direction: column; gap: 8px; }
+.ledger-row h3 s { text-decoration-color: var(--gold); text-decoration-thickness: 2px; color: var(--fg-3); font-size: 1.1rem; font-family: var(--body); font-weight: 400; }
+.ledger-row p { color: var(--fg-2); }
+@media (max-width: 760px) { .ledger-row { grid-template-columns: 1fr; gap: 10px; } }
+
+/* Facility */
+.facility { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #ffffff14; border-radius: var(--radius); overflow: hidden; }
+.fac { background: var(--band); padding: 30px 26px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.fac-n { font: 500 3.4rem/1 var(--display); color: var(--gold); font-variant-numeric: tabular-nums; }
+.fac h3 { font-size: 1.35rem; }
+.fac p { color: var(--band-fg-2); font-size: .97rem; }
+@media (max-width: 900px) { .facility { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .facility { grid-template-columns: 1fr; } }
+.facts-line { margin-top: 28px; color: var(--band-fg-3); font-size: .95rem; }
+
+/* Method steps */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: s; }
+.step { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.step-k { font: 500 .75rem/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--eyebrow); }
+.step h3 { font-size: 1.55rem; }
+.step p { color: var(--fg-2); }
+@media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+.loop-note { margin-top: 26px; color: var(--fg-2); }
+.loop-note b { color: var(--fg); }
+
+/* Team */
+.team { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 20px; }
+.member { background: var(--band-card); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.member h3 { font-size: 1.5rem; }
+.member .role { font: 500 .74rem/1.3 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.member p { color: var(--band-fg-2); font-size: .96rem; }
+.member.lead h3 { font-size: 1.9rem; }
+@media (max-width: 980px) { .team { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .team { grid-template-columns: 1fr; } }
+
+/* Pricing */
+.price-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: stretch; }
+@media (max-width: 900px) { .price-grid { grid-template-columns: 1fr; } }
+.plan { background: var(--navy); color: #f4f1e9; border-radius: 18px; padding: clamp(28px, 4vw, 44px); display: flex; flex-direction: column; gap: 22px; position: relative; overflow: hidden; min-width: 0; }
+.plan-badge { align-self: flex-start; font: 500 .72rem/1 var(--body); letter-spacing: .18em; text-transform: uppercase; background: var(--gold); color: #0f1c26; padding: 8px 12px; border-radius: 999px; }
+.plan h3 { font-size: 2rem; color: var(--gold); }
+.plan-price { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.plan-price b { font: 500 clamp(4rem, 6vw, 5.4rem)/0.9 var(--display); font-variant-numeric: tabular-nums; }
+.plan-price span { color: #d8d2c4; }
+.plan ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.plan li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; color: #e6e0d2; }
+.plan li::before { content: ""; width: 14px; height: 14px; margin-top: 6px; border-radius: 50%; border: 2px solid var(--gold); }
+.plan-terms { font-size: .88rem; color: #9faab4; border-top: 1px solid #ffffff18; padding-top: 16px; }
+.cap { display: flex; flex-direction: column; gap: 8px; }
+.cap-track { height: 8px; border-radius: 4px; background: #ffffff18; overflow: hidden; display: flex; }
+.cap-track i { display: block; width: 25%; background: var(--gold); }
+.cap small { font-size: .82rem; color: #9faab4; }
+
+.compare { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(24px, 3.5vw, 40px); display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.compare h3 { font-size: 1.6rem; }
+.compare table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.compare td { padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--fg-2); vertical-align: top; }
+.compare td:last-child { text-align: right; white-space: nowrap; color: var(--fg); font-weight: 500; padding-left: 16px; }
+.compare tr.total td { border-bottom: 0; font-size: 1.2rem; color: var(--fg); font-weight: 700; }
+.compare tr.us td { border-bottom: 0; border-top: 2px solid var(--fg); color: var(--fg); font-weight: 700; font-size: 1.2rem; }
+.compare tr.us td:last-child { color: var(--eyebrow); }
+.compare .note { font-size: .85rem; color: var(--fg-3); }
+
+.addons-head { margin-top: clamp(48px, 6vw, 72px); margin-bottom: 22px; display: flex; flex-direction: column; gap: 10px; }
+.addons-head h3 { font-size: 1.9rem; }
+.addons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 900px) { .addons { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .addons { grid-template-columns: 1fr; } }
+.addon { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 10px; background: var(--bg); min-width: 0; }
+.addon-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.addon h4 { margin: 0; font: 600 1.25rem/1.2 var(--display); }
+.addon .amt { font: 500 1.5rem/1 var(--display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.addon .amt small { font: 400 .8rem var(--body); color: var(--fg-3); }
+.addon .amt.tbd { font: 500 .78rem/1.3 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--eyebrow); text-align: right; }
+.addon p { color: var(--fg-2); font-size: .95rem; flex: 1; }
+.linkbtn { align-self: flex-start; background: none; border: 0; padding: 4px 0; font: 500 .92rem var(--body); color: var(--eyebrow); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+
+/* Estimator */
+.est { margin-top: clamp(48px, 6vw, 72px); display: grid; grid-template-columns: 1fr 320px; gap: 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--surface); }
+@media (max-width: 860px) { .est { grid-template-columns: 1fr; } }
+.est-body { padding: clamp(24px, 3.5vw, 40px); display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.est-body h3 { font-size: 1.8rem; }
+.est-row { display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: center; padding-block: 14px; border-top: 1px solid var(--line); }
+.est-row label, .est-row .lbl { font-weight: 500; }
+.est-row .sub { grid-column: 1 / -1; font-size: .85rem; color: var(--fg-3); margin-top: -4px; }
+.stepper { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); }
+.stepper button { width: 40px; height: 40px; border: 0; background: none; font: 500 1.2rem var(--body); color: var(--fg); cursor: pointer; border-radius: 50%; }
+.stepper button:hover { background: color-mix(in srgb, var(--fg) 8%, transparent); }
+.stepper output { min-width: 28px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 700; }
+.switch { position: relative; width: 52px; height: 30px; }
+.switch input { position: absolute; inset: 0; opacity: 0; cursor: pointer; margin: 0; }
+.switch span { position: absolute; inset: 0; background: var(--line); border-radius: 999px; transition: background .2s; pointer-events: none; }
+.switch span::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--bg); transition: transform .2s; box-shadow: 0 1px 3px #0003; }
+.switch input:checked + span { background: var(--green); }
+.switch input:checked + span::after { transform: translateX(22px); }
+.switch input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 3px; }
+.est-total { background: var(--navy); color: #f4f1e9; padding: clamp(24px, 3.5vw, 40px); display: flex; flex-direction: column; gap: 16px; justify-content: space-between; }
+.est-total .k { font: 500 .75rem/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+.est-total .big { font: 500 4rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.est-total .big small { font: 400 1rem var(--body); color: #d8d2c4; }
+.est-lines { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: .9rem; color: #d8d2c4; font-variant-numeric: tabular-nums; }
+.est-lines li { display: flex; justify-content: space-between; gap: 12px; }
+.est-total .fine { font-size: .78rem; color: #9faab4; }
+
+/* FAQ */
+.faq { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
+@media (max-width: 820px) { .faq { grid-template-columns: 1fr; } }
+.faq details { border-bottom: 1px solid var(--line); padding-block: 20px; }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; font: 500 1.3rem/1.3 var(--display); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font: 400 1.4rem/1 var(--body); color: var(--eyebrow); transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { margin-top: 12px; color: var(--fg-2); }
+
+/* Inquiry */
+.inq { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
+@media (max-width: 900px) { .inq { grid-template-columns: 1fr; } }
+.inq-aside { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.inq-aside h2 { font-size: var(--s-2); }
+.inq-aside ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 16px; counter-reset: n; }
+.inq-aside li { counter-increment: n; display: grid; grid-template-columns: 34px 1fr; gap: 12px; color: var(--band-fg-2); }
+.inq-aside li::before { content: counter(n); width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); display: grid; place-items: center; font: 500 .9rem var(--body); }
+.inq-aside li b { color: var(--band-fg); display: block; }
+form.card { background: var(--bg); color: var(--fg); border-radius: 18px; padding: clamp(22px, 3.5vw, 40px); display: grid; grid-template-columns: 1fr 1fr; gap: 18px; min-width: 0; }
+@media (max-width: 560px) { form.card { grid-template-columns: 1fr; } }
+.field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.field.full { grid-column: 1 / -1; }
+.field label, .field legend { font-weight: 500; font-size: .92rem; }
+.field .opt { color: var(--fg-3); font-weight: 400; }
+.field input, .field select, .field textarea { font: 400 1rem/1.4 var(--body); color: var(--fg); background: var(--field); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; min-height: 48px; width: 100%; }
+.field textarea { min-height: 110px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--gold); outline-offset: 0; border-color: transparent; }
+.field [aria-invalid="true"] { border-color: var(--err); }
+.err { color: var(--err); font-size: .82rem; min-height: 0; }
+fieldset.field { border: 0; padding: 0; margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.chip span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; font-size: .9rem; background: var(--field); transition: background .15s, border-color .15s, color .15s; pointer-events: none; }
+.chip input:checked + span { background: var(--navy); border-color: var(--navy); color: #f4f1e9; }
+.chip input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+.form-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
+.form-foot small { color: var(--fg-3); max-width: 46ch; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.done { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 14px; padding: 8px 0; }
+.done h3 { font-size: 2rem; }
+.done p { color: var(--fg-2); }
+.done pre { white-space: pre-wrap; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; font: 400 .85rem/1.5 ui-monospace, Menlo, Consolas, monospace; max-height: 260px; overflow: auto; margin: 0; }
+.done .row { display: flex; flex-wrap: wrap; gap: 10px; }
+.status-ok { color: var(--ok); font-weight: 500; }
+
+/* Footer */
+footer { padding-block: 48px; border-top: 1px solid #ffffff14; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; color: var(--band-fg-3); font-size: .88rem; }
+</style>
+<!--/HEAD-->
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="18 Golf Performance Club, home">
+      <span class="brand-mark">18</span>
+      <span class="brand-name">Golf Performance<br>Club</span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#method">The method</a>
+      <a href="#facility">Facility</a>
+      <a href="#team">Team</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-gold" href="#inquire">Inquire</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- Hero -->
+<section class="band hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Downtown Chattanooga · Opening fall 2027</p>
+      <h1>Build the golfer <em>behind</em> the swing.</h1>
+      <p class="hero-sub">Practice, training, coaching and recovery under one roof, working from one plan, open on your time.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-gold" href="#inquire" data-interest="Founding membership">Inquire about membership</a>
+        <a class="btn btn-ghost" href="#pricing">See pricing</a>
+      </div>
+      <p class="hero-facts"><span>24/7 member access</span><span>Membership capped at 100</span><span>$500 a month, all in</span></p>
+    </div>
+
+    <aside class="profile" aria-label="Sample 18 Profile">
+      <div class="profile-top">
+        <h3>Your 18 Profile</h3>
+        <span class="tag">Sample · Retest wk 12</span>
+      </div>
+      <div class="metrics">
+        <div class="metric"><small>Club speed</small><b>104 mph</b><i>+3.1 since baseline</i></div>
+        <div class="metric"><small>Carry, driver</small><b>251 yd</b><i>+9 since baseline</i></div>
+        <div class="metric"><small>Hip rotation</small><b>48°</b><i>+6° since baseline</i></div>
+        <div class="metric"><small>Ground force</small><b>1.6×</b><i>body weight, lead leg</i></div>
+      </div>
+      <div class="bars" aria-label="Sample focus areas">
+        <div class="bar"><span>Mobility</span><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div><span>72</span></div>
+        <div class="bar"><span>Strength</span><div class="bar-track"><div class="bar-fill" style="width:64%"></div></div><span>64</span></div>
+        <div class="bar"><span>Power</span><div class="bar-track"><div class="bar-fill" style="width:81%"></div></div><span>81</span></div>
+        <div class="bar"><span>Swing data</span><div class="bar-track"><div class="bar-fill" style="width:68%"></div></div><span>68</span></div>
+      </div>
+      <p class="profile-foot">Illustration only. Every member's profile is built from their own interview and testing, and shared with every pro on their team.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- Problem → solution -->
+<section class="sec" id="why">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Why 18</p>
+      <h2>Getting better at golf takes too much effort and too much guessing.</h2>
+      <p class="lede">Most golfers piece improvement together from a range, a gym, a coach and a rehab clinic that never talk to each other. We put the whole thing in one building.</p>
+    </div>
+    <div class="ledger">
+      <div class="ledger-row">
+        <span class="q">Where</span>
+        <h3><s>It's scattered</s>One building</h3>
+        <p>Five hitting stations with launch-monitor data, a functional training area built for golf and an active recovery space. Less time driving between places, more time getting better.</p>
+      </div>
+      <div class="ledger-row">
+        <span class="q">Who</span>
+        <h3><s>It's siloed</s>One team</h3>
+        <p>A PGA professional, a strength coach and a clinician, each a specialist in their own area. They work together, and every plan is connected between them.</p>
+      </div>
+      <div class="ledger-row">
+        <span class="q">What</span>
+        <h3><s>It's guesswork</s>One plan</h3>
+        <p>Every member starts with an interview and testing: your 18 Profile. You get a custom routine, and we retest every 3 months so you can see your progress.</p>
+      </div>
+      <div class="ledger-row">
+        <span class="q">When</span>
+        <h3><s>It's on someone else's schedule</s>Your time</h3>
+        <p>Members have 24/7 keycard access. Before work, after work, weekends. No appointment hours to fit around.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Facility -->
+<section class="band sec" id="facility">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">The facility</p>
+      <h2>Everything you need to prepare the swing and the body that powers it.</h2>
+    </div>
+    <div class="facility">
+      <div class="fac"><span class="fac-n">5</span><h3>Hitting stations</h3><p>Launch-monitor data on every station, open 24/7. Every swing is measured and tracked, so you see what's changing and why.</p></div>
+      <div class="fac"><span class="fac-n">3</span><h3>Digital strength stations</h3><p>Adaptive strength stations that log load and progress, beside a functional training area built for golf.</p></div>
+      <div class="fac"><span class="fac-n">1</span><h3>Testing process</h3><p>State-of-the-art assessment tools and a structured process show where your body helps or limits your swing.</p></div>
+      <div class="fac"><span class="fac-n">24/7</span><h3>Warm-up and recovery</h3><p>Progress happens when you recover well. Members get premium warm-up and recovery tools, including Normatec.</p></div>
+    </div>
+    <p class="facts-line">3,000 sq ft · downtown Chattanooga · keycard entry</p>
+  </div>
+</section>
+
+<!-- Method -->
+<section class="sec" id="method">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">The 18 Method</p>
+      <h2>Know your body. Know your swing. Measure the change.</h2>
+      <p class="lede">Built by an expert in health and human performance, so you have the tools to play your best for as long as possible.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="step-k">Week 0 · Test</span><h3>Your 18 Profile</h3><p>An interview and a full golf-specific assessment of how you move, how strong you are and how you swing. It shows where your body and your swing limit each other.</p></div>
+      <div class="step"><span class="step-k">Weeks 1–12 · Train</span><h3>Your custom routine</h3><p>A routine built from your profile, run on the hitting stations and the training floor whenever it suits you, with your pros working from the same plan.</p></div>
+      <div class="step"><span class="step-k">Week 12 · Retest</span><h3>See your progress</h3><p>We retest every 3 months, update your profile and adjust the plan. Progress you can see, not guess at.</p></div>
+    </div>
+    <p class="loop-note">Every tool feeds the same place: <b>your 18 Profile</b>, shared by every pro on your team.</p>
+  </div>
+</section>
+
+<!-- Team -->
+<section class="band sec" id="team">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">The team</p>
+      <h2>Clinical, strength and golf expertise on one floor.</h2>
+    </div>
+    <div class="team">
+      <div class="member lead"><h3>Jeremy Herum</h3><p class="role">Founder · MS, LAT, ATC, CSCS</p><p>Sports medicine clinician, strength specialist, performance coach and scratch golfer. Designs the 18 Profile and the retest process.</p></div>
+      <div class="member"><h3>Strength coach</h3><p class="role">Joining before opening</p><p>Builds each member's custom routine on the digital strength stations and leads training.</p></div>
+      <div class="member"><h3>Head golf professional</h3><p class="role">PGA professional</p><p>Leads lessons and junior programs, with swing data from the five stations feeding your 18 Profile.</p></div>
+      <div class="member"><h3>General manager</h3><p class="role">Member experience</p><p>Runs day-to-day operations and makes sure the building works for you.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Membership and pricing</p>
+      <h2>One membership, all in. Add coaching when you want it.</h2>
+      <p class="lede">The membership costs about what the pieces cost on their own, with the connection built in.</p>
+    </div>
+
+    <div class="price-grid">
+      <article class="plan" aria-labelledby="plan-title">
+        <span class="plan-badge">Founding members now forming</span>
+        <h3 id="plan-title">18 Membership</h3>
+        <div class="plan-price"><b>$500</b><span>a month, all in</span></div>
+        <ul>
+          <li>24/7 access to the hitting stations and training floor</li>
+          <li>Your 18 Profile assessment, included (a $250 value)</li>
+          <li>A custom routine, retested every 3 months</li>
+          <li>Warm-up and recovery tools, including Normatec</li>
+          <li>PGA, strength and clinical pros in the same building, working from one plan</li>
+        </ul>
+        <div class="cap">
+          <div class="cap-track" aria-hidden="true"><i></i></div>
+          <small>Membership is capped at 100. The first 25 are founding members.</small>
+        </div>
+        <a class="btn btn-gold" href="#inquire" data-interest="Founding membership">Inquire about membership</a>
+        <p class="plan-terms">12-month commitment. Founding commitments are non-binding until the club opens.</p>
+      </article>
+
+      <div class="compare">
+        <h3>What it costs today, separately</h3>
+        <table>
+          <tr><td>Boutique gym, no golf-specific training</td><td>$150–$200</td></tr>
+          <tr><td>Simulator-only membership, limited booking</td><td>$229</td></tr>
+          <tr><td>Golf-specific testing every 3 months ($250 each)</td><td>≈ $83</td></tr>
+          <tr class="total"><td>Total per month</td><td>≈ $487</td></tr>
+          <tr class="us"><td>18 Golf Performance Club, all of it connected</td><td>$500</td></tr>
+        </table>
+        <p class="note">Three places, three providers, no shared plan, business hours. Separate prices are local estimates.</p>
+      </div>
+    </div>
+
+    <div class="addons-head">
+      <p class="eyebrow">Add-ons and programs</p>
+      <h3>Work one-on-one with the team</h3>
+    </div>
+    <div class="addons">
+      <div class="addon">
+        <div class="addon-top"><h4>Golf lesson</h4><span class="amt">$150 <small>/ session</small></span></div>
+        <p>One-on-one with the PGA professional, using your station data and your 18 Profile.</p>
+        <button class="linkbtn" type="button" data-interest="Golf lessons">Ask about lessons</button>
+      </div>
+      <div class="addon">
+        <div class="addon-top"><h4>Strength session</h4><span class="amt">$150 <small>/ session</small></span></div>
+        <p>Coached training with the strength coach, built around your routine and your retest goals.</p>
+        <button class="linkbtn" type="button" data-interest="Strength sessions">Ask about strength sessions</button>
+      </div>
+      <div class="addon">
+        <div class="addon-top"><h4>Rehab and 1:1 training</h4><span class="amt tbd">Session or<br>package</span></div>
+        <p>Clinical care and one-on-one training with a licensed athletic trainer, by the session or in packages.</p>
+        <button class="linkbtn" type="button" data-interest="Rehab and 1:1 training">Ask about rehab</button>
+      </div>
+      <div class="addon">
+        <div class="addon-top"><h4>Junior packages</h4><span class="amt tbd">Pricing<br>coming soon</span></div>
+        <p>Session packages for junior golfers. Minors train with a parent or coach present.</p>
+        <button class="linkbtn" type="button" data-interest="Junior packages">Join the junior list</button>
+      </div>
+      <div class="addon">
+        <div class="addon-top"><h4>Teams and schools</h4><span class="amt tbd">Custom</span></div>
+        <p>Testing and training programs for high school and college golf teams.</p>
+        <button class="linkbtn" type="button" data-interest="Team or school program">Ask about team programs</button>
+      </div>
+      <div class="addon">
+        <div class="addon-top"><h4>Club partnerships</h4><span class="amt tbd">Custom</span></div>
+        <p>Extra support for members of private golf clubs, working alongside your club's professionals.</p>
+        <button class="linkbtn" type="button" data-interest="Club partnership">Ask about partnerships</button>
+      </div>
+    </div>
+
+    <!-- Estimator -->
+    <div class="est" id="estimate">
+      <div class="est-body">
+        <div>
+          <p class="eyebrow">Plan your month</p>
+          <h3>Estimate your monthly cost</h3>
+        </div>
+        <div class="est-row">
+          <span class="lbl" id="lbl-mem">18 Membership</span>
+          <label class="switch" title="Include membership"><input type="checkbox" id="est-member" checked aria-labelledby="lbl-mem"><span></span></label>
+          <span class="sub">$500 a month, 12-month commitment</span>
+        </div>
+        <div class="est-row">
+          <span class="lbl" id="lbl-lessons">Golf lessons per month</span>
+          <div class="stepper" role="group" aria-labelledby="lbl-lessons">
+            <button type="button" data-step="lessons" data-d="-1" aria-label="One fewer lesson">−</button>
+            <output id="est-lessons" aria-live="polite">0</output>
+            <button type="button" data-step="lessons" data-d="1" aria-label="One more lesson">+</button>
+          </div>
+          <span class="sub">$150 each, with the PGA professional</span>
+        </div>
+        <div class="est-row">
+          <span class="lbl" id="lbl-strength">Strength sessions per month</span>
+          <div class="stepper" role="group" aria-labelledby="lbl-strength">
+            <button type="button" data-step="strength" data-d="-1" aria-label="One fewer strength session">−</button>
+            <output id="est-strength" aria-live="polite">0</output>
+            <button type="button" data-step="strength" data-d="1" aria-label="One more strength session">+</button>
+          </div>
+          <span class="sub">$150 each, with the strength coach</span>
+        </div>
+      </div>
+      <div class="est-total">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span class="k">Estimated per month</span>
+          <span class="big" id="est-total">$500</span>
+          <ul class="est-lines" id="est-lines"></ul>
+        </div>
+        <button class="btn btn-gold" type="button" id="est-inquire">Inquire with this plan</button>
+        <p class="fine">Estimate only. Rehab, junior and team pricing is quoted on inquiry.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Questions</p>
+      <h2>Before you inquire</h2>
+    </div>
+    <div class="faq">
+      <details><summary>When does the club open?</summary><p>We're targeting October or November 2027 in downtown Chattanooga. Founding members hear first about the location, tours and the opening date.</p></details>
+      <details><summary>What does "founding member" mean?</summary><p>The first 25 members to commit before opening. Your spot is held when the club opens, and you're first in for your 18 Profile assessment. A founding commitment is non-binding until we open.</p></details>
+      <details><summary>How does 24/7 access work?</summary><p>Members get keycard entry at any hour. The building has cameras, and every member signs a waiver.</p></details>
+      <details><summary>Can juniors train here?</summary><p>Yes, through junior session packages. Minors train only with a parent or coach present.</p></details>
+      <details><summary>Is the 18 Profile only for low handicaps?</summary><p>No. The testing shows where your body helps or limits your swing at any level, and your routine starts from where you are.</p></details>
+      <details><summary>Why is there a membership cap?</summary><p>At 100 members you can always get on a station and your pros know your plan. The cap keeps it that way.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- Inquiry -->
+<section class="band sec" id="inquire">
+  <div class="wrap inq">
+    <div class="inq-aside">
+      <p class="eyebrow">Membership inquiry</p>
+      <h2>Reserve a conversation about your spot.</h2>
+      <p class="lede">Tell us about your game and what you're interested in. We'll reach out personally.</p>
+      <ol>
+        <li><span><b>We get in touch</b>Within a few days, by email or phone, your choice.</span></li>
+        <li><span><b>A short call</b>About your game, your goals and the membership.</span></li>
+        <li><span><b>Hold your spot</b>A non-binding founding commitment, while spots last.</span></li>
+      </ol>
+    </div>
+
+    <form class="card" id="inq-form" novalidate>
+      <div class="field">
+        <label for="f-name">Full name</label>
+        <input id="f-name" name="name" autocomplete="name" required>
+        <span class="err" id="e-name"></span>
+      </div>
+      <div class="field">
+        <label for="f-email">Email</label>
+        <input id="f-email" name="email" type="email" autocomplete="email" required>
+        <span class="err" id="e-email"></span>
+      </div>
+      <div class="field">
+        <label for="f-phone">Phone <span class="opt">(optional)</span></label>
+        <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+      </div>
+      <div class="field">
+        <label for="f-contact">Best way to reach you</label>
+        <select id="f-contact" name="contact">
+          <option>Email</option><option>Phone call</option><option>Text</option>
+        </select>
+      </div>
+      <fieldset class="field full">
+        <legend>I'm interested in</legend>
+        <div class="chips" id="chips">
+          <label class="chip"><input type="checkbox" name="interest" value="Founding membership"><span>Founding membership</span></label>
+          <label class="chip"><input type="checkbox" name="interest" value="Golf lessons"><span>Golf lessons</span></label>
+          <label class="chip"><input type="checkbox" name="interest" value="Strength sessions"><span>Strength sessions</span></label>
+          <label class="chip"><input type="checkbox" name="interest" value="Rehab and 1:1 training"><span>Rehab and 1:1 training</span></label>
+          <label class="chip"><input type="checkbox" name="interest" value="Junior packages"><span>Junior packages</span></label>
+          <label class="chip"><input type="checkbox" name="interest" value="Team or school program"><span>Team or school program</span></label>
+          <label class="chip"><input type="checkbox" name="interest" value="Club partnership"><span>Club partnership</span></label>
+        </div>
+        <span class="err" id="e-interest"></span>
+      </fieldset>
+      <div class="field">
+        <label for="f-hcp">Handicap <span class="opt">(optional)</span></label>
+        <select id="f-hcp" name="handicap">
+          <option value="">Choose one</option>
+          <option>Plus or scratch</option><option>1–9</option><option>10–18</option><option>19+</option><option>Don't keep one</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-when">When would you train most?</label>
+        <select id="f-when" name="when">
+          <option value="">Choose one</option>
+          <option>Early morning</option><option>Midday</option><option>Evenings</option><option>Weekends</option><option>Whenever I can</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label for="f-msg">Anything we should know? <span class="opt">(optional)</span></label>
+        <textarea id="f-msg" name="message" placeholder="Goals, injuries you're working around, your home club, questions…"></textarea>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="f-company">Company</label><input id="f-company" name="company" tabindex="-1" autocomplete="off"></div>
+      <div class="form-foot">
+        <small>We use your details only to follow up about membership. No spam, and no payment is taken.</small>
+        <button class="btn btn-gold" type="submit" id="f-submit">Send inquiry</button>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="band">
+  <div class="wrap">
+    <span>18 Golf Performance Club · Downtown Chattanooga, Tennessee</span>
+    <span>Opening fall 2027 · Prices subject to change</span>
+  </div>
+</footer>
+
+<script>
+/* ---------- Settings ----------
+   FORM_ENDPOINT: where inquiries are POSTed as JSON on your own host
+   (for example a Formspree form URL like https://formspree.io/f/xxxxxxx).
+   CONTACT_EMAIL: shown if no endpoint is set, so visitors can send it themselves. */
+var FORM_ENDPOINT = "";
+var CONTACT_EMAIL = "";
+
+(function () {
+  var PRICE = { member: 500, lesson: 150, strength: 150 };
+  var est = { member: true, lessons: 0, strength: 0 };
+  var $ = function (s) { return document.querySelector(s); };
+  var money = function (n) { return "$" + n.toLocaleString("en-US"); };
+
+  function renderEst() {
+    var lines = [];
+    var total = 0;
+    if (est.member) { lines.push(["Membership", PRICE.member]); total += PRICE.member; }
+    if (est.lessons) { lines.push([est.lessons + " × golf lesson", est.lessons * PRICE.lesson]); total += est.lessons * PRICE.lesson; }
+    if (est.strength) { lines.push([est.strength + " × strength session", est.strength * PRICE.strength]); total += est.strength * PRICE.strength; }
+    $("#est-lessons").textContent = est.lessons;
+    $("#est-strength").textContent = est.strength;
+    $("#est-total").innerHTML = money(total) + ' <small>/ mo</small>';
+    var ul = $("#est-lines"); ul.textContent = "";
+    if (!lines.length) lines.push(["Nothing selected", 0]);
+    lines.forEach(function (l) {
+      var li = document.createElement("li");
+      var a = document.createElement("span"); a.textContent = l[0];
+      var b = document.createElement("span"); b.textContent = money(l[1]);
+      li.append(a, b); ul.append(li);
+    });
+  }
+  $("#est-member").addEventListener("change", function (e) { est.member = e.target.checked; renderEst(); });
+  document.querySelectorAll("[data-step]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var k = b.dataset.step, d = +b.dataset.d;
+      est[k] = Math.max(0, Math.min(12, est[k] + d));
+      renderEst();
+    });
+  });
+  renderEst();
+
+  function estSummary() {
+    var parts = [];
+    if (est.member) parts.push("Membership");
+    if (est.lessons) parts.push(est.lessons + " lesson" + (est.lessons > 1 ? "s" : "") + "/mo");
+    if (est.strength) parts.push(est.strength + " strength session" + (est.strength > 1 ? "s" : "") + "/mo");
+    var total = (est.member ? PRICE.member : 0) + est.lessons * PRICE.lesson + est.strength * PRICE.strength;
+    return parts.length ? parts.join(", ") + " (est. " + money(total) + "/mo)" : "";
+  }
+
+  // Jump to the form with an interest pre-selected
+  function goInquire(interest, extra) {
+    if (interest) {
+      document.querySelectorAll('#chips input').forEach(function (c) { if (c.value === interest) c.checked = true; });
+    }
+    if (extra) {
+      var m = $("#f-msg");
+      if (m.value.indexOf(extra) === -1) m.value = (m.value ? m.value + "\n" : "") + extra;
+    }
+    $("#inquire").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    setTimeout(function () { $("#f-name").focus({ preventScroll: true }); }, 400);
+  }
+  document.querySelectorAll("[data-interest]").forEach(function (el) {
+    el.addEventListener("click", function (e) { e.preventDefault(); goInquire(el.dataset.interest); });
+  });
+  $("#est-inquire").addEventListener("click", function () {
+    if (est.member) goInquire("Founding membership");
+    if (est.lessons) goInquire("Golf lessons");
+    if (est.strength) goInquire("Strength sessions");
+    goInquire(null, "Estimated plan: " + (estSummary() || "add-ons only"));
+  });
+
+  // ----- Inquiry form -----
+  var form = $("#inq-form");
+  function setErr(id, msg, input) {
+    $("#e-" + id).textContent = msg || "";
+    if (input) input.setAttribute("aria-invalid", msg ? "true" : "false");
+  }
+  function collect() {
+    var fd = new FormData(form);
+    return {
+      name: (fd.get("name") || "").trim(),
+      email: (fd.get("email") || "").trim(),
+      phone: (fd.get("phone") || "").trim(),
+      contact: fd.get("contact") || "",
+      interests: fd.getAll("interest"),
+      handicap: fd.get("handicap") || "",
+      when: fd.get("when") || "",
+      message: (fd.get("message") || "").trim(),
+      plan: estSummary(),
+      submittedAt: new Date().toISOString()
+    };
+  }
+  function validate(d) {
+    var ok = true;
+    if (!d.name) { setErr("name", "Enter your name.", $("#f-name")); ok = false; } else setErr("name", "", $("#f-name"));
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { setErr("email", "Enter an email address like name@example.com.", $("#f-email")); ok = false; } else setErr("email", "", $("#f-email"));
+    if (!d.interests.length) { setErr("interest", "Pick at least one option."); ok = false; } else setErr("interest", "");
+    return ok;
+  }
+  function asText(d) {
+    return [
+      "Membership inquiry: 18 Golf Performance Club",
+      "Name: " + d.name, "Email: " + d.email, "Phone: " + (d.phone || "—"),
+      "Reach me by: " + d.contact, "Interested in: " + d.interests.join(", "),
+      "Handicap: " + (d.handicap || "—"), "Trains most: " + (d.when || "—"),
+      d.plan ? "Estimated plan: " + d.plan : "", d.message ? "\n" + d.message : ""
+    ].filter(Boolean).join("\n");
+  }
+
+  // Storage backends, tried in order
+  var dbP = null, userP = null;
+  if (window.claude && typeof window.claude.use === "function") {
+    dbP = window.claude.use("db").catch(function () { return null; });
+    userP = window.claude.use("user").catch(function () { return null; });
+  }
+  async function saveToDb(d) {
+    if (!dbP) return false;
+    var db = await dbP, user = await userP;
+    if (!db || !user) return false;
+    var uid = await user.id();
+    if (!uid) return false;
+    var id = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+    await db.doc("inquiries/" + uid + "/items/" + id).set(d);
+    return true;
+  }
+  async function saveToEndpoint(d) {
+    if (!FORM_ENDPOINT) return false;
+    var r = await fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(d) });
+    if (!r.ok) throw new Error("status " + r.status);
+    return true;
+  }
+
+  function showDone(d, saved) {
+    var wrap = document.createElement("div");
+    wrap.className = "done";
+    var h = document.createElement("h3");
+    var p = document.createElement("p");
+    if (saved) {
+      h.textContent = "Thanks, " + d.name.split(" ")[0] + ". Your inquiry is in.";
+      p.innerHTML = '<span class="status-ok">Received.</span> We\'ll reach out by ' + (d.contact === "Email" ? "email" : "phone") + " within a few days.";
+      wrap.append(h, p);
+    } else {
+      h.textContent = "Almost there, " + d.name.split(" ")[0] + ".";
+      p.textContent = CONTACT_EMAIL
+        ? "Online inquiries aren't connected yet. Copy your inquiry below and email it to " + CONTACT_EMAIL + "."
+        : "Online inquiries aren't connected yet. Copy your inquiry below and send it to the club.";
+      var pre = document.createElement("pre"); pre.textContent = asText(d);
+      var row = document.createElement("div"); row.className = "row";
+      var copy = document.createElement("button"); copy.type = "button"; copy.className = "btn btn-gold"; copy.textContent = "Copy inquiry";
+      copy.addEventListener("click", function () {
+        var done = function () { copy.textContent = "Copied"; };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(asText(d)).then(done, function () { selectPre(pre); });
+        } else selectPre(pre);
+      });
+      row.append(copy);
+      if (CONTACT_EMAIL) {
+        var a = document.createElement("a"); a.className = "btn btn-ghost"; a.textContent = "Open email";
+        a.href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent("Membership inquiry") + "&body=" + encodeURIComponent(asText(d));
+        row.append(a);
+      }
+      wrap.append(h, p, pre, row);
+    }
+    var again = document.createElement("button"); again.type = "button"; again.className = "linkbtn"; again.textContent = "Send another inquiry";
+    again.addEventListener("click", function () { location.hash = ""; location.reload(); });
+    wrap.append(again);
+    form.replaceChildren(wrap);
+  }
+  function selectPre(pre) { var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    if ($("#f-company").value) return; // bot trap
+    var d = collect();
+    if (!validate(d)) { var first = form.querySelector('[aria-invalid="true"]') || $("#chips input"); first && first.focus(); return; }
+    var btn = $("#f-submit"); btn.disabled = true; btn.textContent = "Sending…";
+    var saved = false, failed = false;
+    try { saved = await saveToDb(d); } catch (err) { saved = false; }
+    if (!saved) { try { saved = await saveToEndpoint(d); } catch (err) { failed = true; } }
+    if (failed) {
+      btn.disabled = false; btn.textContent = "Send inquiry";
+      setErr("interest", "We couldn't send that just now. Check your connection and try again.");
+      return;
+    }
+    showDone(d, saved);
+  });
+})();
+</script>
+<!--/PAGE-->
+</body>
+</html>
