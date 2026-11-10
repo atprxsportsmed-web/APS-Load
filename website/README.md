@@ -8,17 +8,12 @@ a membership inquiry form.
 Open `index.html` in a browser, or deploy the `website/` folder to any static host
 (Vercel, Netlify, GitHub Pages).
 
-## Connect the inquiry form
+## Inquiry form
 
-At the top of the `<script>` in `index.html`:
-
-- `FORM_ENDPOINT`: a URL that accepts a JSON POST, such as a Formspree form
-  (`https://formspree.io/f/xxxxxxx`). Each inquiry is sent there.
-- `CONTACT_EMAIL`: shown to visitors if no endpoint is set, so they can email
-  their inquiry themselves.
-
-With neither set, the form still validates and shows the visitor a copyable
-summary of their inquiry.
+Inquiries are sent to Formspree (`FORM_ENDPOINT` at the top of the `<script>`
+in `index.html`), which emails each one to the club. After a successful send the
+visitor sees an "Inquiry received" confirmation box with a thank-you message. If
+the send fails, an error appears next to the Send button and their entries are kept.
 
 ## Placeholders to confirm before launch
 

@@ -257,6 +257,14 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 .form-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
 .form-foot small { color: var(--fg-3); max-width: 46ch; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-status { flex-basis: 100%; margin: 0; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--err); color: var(--err); background: color-mix(in srgb, var(--err) 8%, transparent); font-weight: 500; }
+.confirm { border: 0; padding: clamp(28px, 5vw, 44px); border-radius: 18px; width: min(460px, calc(100vw - 32px)); background: var(--bg); color: var(--fg); text-align: center; box-shadow: 0 40px 80px -30px #000c; }
+.confirm[open] { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.confirm::backdrop { background: #0f1c26b3; backdrop-filter: blur(3px); }
+.confirm-mark { width: 64px; height: 64px; border-radius: 50%; background: var(--gold); color: #12355b; display: grid; place-items: center; font: 700 1.9rem/1 var(--body); }
+.confirm h2 { font-size: 2.2rem; }
+.confirm p { color: var(--fg-2); max-width: 36ch; }
+.confirm .btn { margin-top: 8px; min-width: 140px; }
 .done { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 14px; padding: 8px 0; }
 .done h3 { font-size: 2rem; }
 .done p { color: var(--fg-2); }
@@ -576,15 +584,23 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <label for="f-msg">Anything we should know? <span class="opt">(optional)</span></label>
         <textarea id="f-msg" name="message" placeholder="Goals, injuries you're working around, your home club, questions…"></textarea>
       </div>
-      <div class="hp" aria-hidden="true"><label for="f-company">Company</label><input id="f-company" name="company" tabindex="-1" autocomplete="off"></div>
+      <div class="hp" aria-hidden="true"><label for="f-gotcha">Leave this field empty</label><input id="f-gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off" data-lpignore="true"></div>
       <div class="form-foot">
         <small>We use your details only to follow up about membership. No spam, and no payment is taken.</small>
         <button class="btn btn-gold" type="submit" id="f-submit">Send inquiry</button>
+        <p class="form-status" id="f-status" role="alert" hidden></p>
       </div>
     </form>
   </div>
 </section>
 </main>
+
+<dialog class="confirm" id="confirm" aria-labelledby="confirm-title">
+  <div class="confirm-mark" aria-hidden="true">✓</div>
+  <h2 id="confirm-title">Inquiry received</h2>
+  <p id="confirm-text">Thank you for your interest in 18 Golf Performance Club. We'll be in touch within a few days.</p>
+  <button class="btn btn-gold" type="button" id="confirm-close">Close</button>
+</dialog>
 
 <footer class="band">
   <div class="wrap">
@@ -597,9 +613,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 /* ---------- Settings ----------
    FORM_ENDPOINT: where inquiries are POSTed as JSON on your own host
    (for example a Formspree form URL like https://formspree.io/f/xxxxxxx).
-   CONTACT_EMAIL: shown if no endpoint is set, so visitors can send it themselves. */
+*/
 var FORM_ENDPOINT = "https://formspree.io/f/mljbrran";
-var CONTACT_EMAIL = "";
 
 (function () {
   var $ = function (s) { return document.querySelector(s); };
@@ -645,25 +660,12 @@ var CONTACT_EMAIL = "";
     if (!d.interests.length) { setErr("interest", "Pick at least one option."); ok = false; } else setErr("interest", "");
     return ok;
   }
-  function asText(d) {
-    return [
-      "Membership inquiry: 18 Golf Performance Club",
-      "Name: " + d.name, "Email: " + d.email, "Phone: " + (d.phone || "—"),
-      "Reach me by: " + d.contact, "Interested in: " + d.interests.join(", "),
-      "Handicap: " + (d.handicap || "—"), "Trains most: " + (d.when || "—"),
-d.message ? "\n" + d.message : ""
-    ].filter(Boolean).join("\n");
-  }
 
-  // Storage backends, tried in order
-  var dbP = null, userP = null;
-  if (window.claude && typeof window.claude.use === "function") {
-    dbP = window.claude.use("db").catch(function () { return null; });
-    userP = window.claude.use("user").catch(function () { return null; });
-  }
+  // Where inquiries go: Formspree on the live site; the page's own store inside a Claude preview.
+  var inClaude = !!(window.claude && typeof window.claude.use === "function");
   async function saveToDb(d) {
-    if (!dbP) return false;
-    var db = await dbP, user = await userP;
+    var db = await window.claude.use("db").catch(function () { return null; });
+    var user = await window.claude.use("user").catch(function () { return null; });
     if (!db || !user) return false;
     var uid = await user.id();
     if (!uid) return false;
@@ -672,65 +674,64 @@ d.message ? "\n" + d.message : ""
     return true;
   }
   async function saveToEndpoint(d) {
-    if (!FORM_ENDPOINT) return false;
-    var r = await fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.assign({ _subject: "Membership inquiry: " + d.name, _replyto: d.email }, d, { interests: d.interests.join(", ") })) });
-    if (!r.ok) throw new Error("status " + r.status);
-    return true;
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 20000);
+    try {
+      var body = Object.assign({ _subject: "Membership inquiry: " + d.name, _replyto: d.email, _gotcha: $("#f-gotcha").value }, d, { interests: d.interests.join(", ") });
+      var r = await fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(body), signal: ctrl.signal });
+      var res = await r.json().catch(function () { return {}; });
+      if (!r.ok || res.ok === false) {
+        var why = res.errors && res.errors.length ? res.errors.map(function (x) { return x.message; }).join(" ") : "status " + r.status;
+        throw new Error(why);
+      }
+      return true;
+    } finally { clearTimeout(timer); }
   }
 
-  function showDone(d, saved) {
-    var wrap = document.createElement("div");
-    wrap.className = "done";
-    var h = document.createElement("h3");
-    var p = document.createElement("p");
-    if (saved) {
-      h.textContent = "Thanks, " + d.name.split(" ")[0] + ". Your inquiry is in.";
-      p.innerHTML = '<span class="status-ok">Received.</span> We\'ll reach out by ' + (d.contact === "Email" ? "email" : "phone") + " within a few days.";
-      wrap.append(h, p);
-    } else {
-      h.textContent = "Almost there, " + d.name.split(" ")[0] + ".";
-      p.textContent = CONTACT_EMAIL
-        ? "Online inquiries aren't connected yet. Copy your inquiry below and email it to " + CONTACT_EMAIL + "."
-        : "Online inquiries aren't connected yet. Copy your inquiry below and send it to the club.";
-      var pre = document.createElement("pre"); pre.textContent = asText(d);
-      var row = document.createElement("div"); row.className = "row";
-      var copy = document.createElement("button"); copy.type = "button"; copy.className = "btn btn-gold"; copy.textContent = "Copy inquiry";
-      copy.addEventListener("click", function () {
-        var done = function () { copy.textContent = "Copied"; };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(asText(d)).then(done, function () { selectPre(pre); });
-        } else selectPre(pre);
-      });
-      row.append(copy);
-      if (CONTACT_EMAIL) {
-        var a = document.createElement("a"); a.className = "btn btn-ghost"; a.textContent = "Open email";
-        a.href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent("Membership inquiry") + "&body=" + encodeURIComponent(asText(d));
-        row.append(a);
-      }
-      wrap.append(h, p, pre, row);
-    }
+  var statusEl = $("#f-status");
+  function showStatus(msg) { statusEl.textContent = msg || ""; statusEl.hidden = !msg; }
+
+  var dialog = $("#confirm");
+  $("#confirm-close").addEventListener("click", function () { dialog.close(); });
+  function showThanks(d) {
+    var first = d.name.split(" ")[0];
+    $("#confirm-title").textContent = "Inquiry received";
+    $("#confirm-text").textContent = "Thank you, " + first + "! We've received your inquiry and will reach out by " + (d.contact === "Email" ? "email" : "phone") + " within a few days.";
+    // Replace the form with a thank-you note so the confirmation stays on the page
+    var wrap = document.createElement("div"); wrap.className = "done";
+    var h = document.createElement("h3"); h.textContent = "Thank you, " + first + ".";
+    var p = document.createElement("p"); p.innerHTML = '<span class="status-ok">Your inquiry was received.</span> ';
+    p.append("We'll be in touch within a few days.");
     var again = document.createElement("button"); again.type = "button"; again.className = "linkbtn"; again.textContent = "Send another inquiry";
-    again.addEventListener("click", function () { location.hash = ""; location.reload(); });
-    wrap.append(again);
+    again.addEventListener("click", function () { location.reload(); });
+    wrap.append(h, p, again);
     form.replaceChildren(wrap);
+    if (typeof dialog.showModal === "function") { dialog.showModal(); $("#confirm-close").focus(); }
+    else { dialog.setAttribute("open", ""); }
   }
-  function selectPre(pre) { var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
-    if ($("#f-company").value) return; // bot trap
+    showStatus("");
     var d = collect();
-    if (!validate(d)) { var first = form.querySelector('[aria-invalid="true"]') || $("#chips input"); first && first.focus(); return; }
-    var btn = $("#f-submit"); btn.disabled = true; btn.textContent = "Sending…";
-    var saved = false, failed = false;
-    try { saved = await saveToDb(d); } catch (err) { saved = false; }
-    if (!saved) { try { saved = await saveToEndpoint(d); } catch (err) { failed = true; } }
-    if (failed) {
-      btn.disabled = false; btn.textContent = "Send inquiry";
-      setErr("interest", "We couldn't send that just now. Check your connection and try again.");
+    if (!validate(d)) {
+      showStatus("Please fill in the highlighted fields: your name, a valid email and at least one interest.");
+      var first = form.querySelector('[aria-invalid="true"]') || $("#chips input");
+      first && first.focus();
       return;
     }
-    showDone(d, saved);
+    var btn = $("#f-submit"); btn.disabled = true; btn.textContent = "Sending…";
+    var saved = false, error = null;
+    try {
+      saved = inClaude ? await saveToDb(d) : false;
+      if (!saved) saved = await saveToEndpoint(d);
+    } catch (err) { error = err; }
+    btn.disabled = false; btn.textContent = "Send inquiry";
+    if (!saved) {
+      showStatus("Your inquiry didn't go through" + (error && error.name !== "AbortError" && /^[A-Za-z]/.test(error.message) && error.message.indexOf("status") !== 0 ? " (" + error.message + ")" : "") + ". Check your connection and press Send inquiry again.");
+      return;
+    }
+    showThanks(d);
   });
 })();
 </script>
