@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap">
 <style>
-/* Layout: alternating cream and navy bands like the deck; one editorial column, pricing as a ledger + an estimator, inquiry form last. */
+/* Layout: alternating cream and navy bands like the deck; one editorial column, pricing as a ledger, inquiry form last. */
 :root {
   --navy: #0f1c26;      /* deck dark */
   --navy-2: #16293a;    /* deck card on dark */
@@ -217,33 +217,6 @@ a { color: inherit; }
 .addon p { color: var(--fg-2); font-size: .95rem; flex: 1; }
 .linkbtn { align-self: flex-start; background: none; border: 0; padding: 4px 0; font: 500 .92rem var(--body); color: var(--eyebrow); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
 
-/* Estimator */
-.est { margin-top: clamp(48px, 6vw, 72px); display: grid; grid-template-columns: 1fr 320px; gap: 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--surface); }
-@media (max-width: 860px) { .est { grid-template-columns: 1fr; } }
-.est-body { padding: clamp(24px, 3.5vw, 40px); display: flex; flex-direction: column; gap: 22px; min-width: 0; }
-.est-body h3 { font-size: 1.8rem; }
-.est-row { display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: center; padding-block: 14px; border-top: 1px solid var(--line); }
-.est-row label, .est-row .lbl { font-weight: 500; }
-.est-row .sub { grid-column: 1 / -1; font-size: .85rem; color: var(--fg-3); margin-top: -4px; }
-.stepper { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); }
-.stepper button { width: 40px; height: 40px; border: 0; background: none; font: 500 1.2rem var(--body); color: var(--fg); cursor: pointer; border-radius: 50%; }
-.stepper button:hover { background: color-mix(in srgb, var(--fg) 8%, transparent); }
-.stepper output { min-width: 28px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 700; }
-.switch { position: relative; width: 52px; height: 30px; }
-.switch input { position: absolute; inset: 0; opacity: 0; cursor: pointer; margin: 0; }
-.switch span { position: absolute; inset: 0; background: var(--line); border-radius: 999px; transition: background .2s; pointer-events: none; }
-.switch span::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--bg); transition: transform .2s; box-shadow: 0 1px 3px #0003; }
-.switch input:checked + span { background: var(--green); }
-.switch input:checked + span::after { transform: translateX(22px); }
-.switch input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 3px; }
-.est-total { background: var(--navy); color: #f4f1e9; padding: clamp(24px, 3.5vw, 40px); display: flex; flex-direction: column; gap: 16px; justify-content: space-between; }
-.est-total .k { font: 500 .75rem/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
-.est-total .big { font: 500 4rem/1 var(--display); font-variant-numeric: tabular-nums; }
-.est-total .big small { font: 400 1rem var(--body); color: #d8d2c4; }
-.est-lines { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: .9rem; color: #d8d2c4; font-variant-numeric: tabular-nums; }
-.est-lines li { display: flex; justify-content: space-between; gap: 12px; }
-.est-total .fine { font-size: .78rem; color: #9faab4; }
-
 /* FAQ */
 .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
 @media (max-width: 820px) { .faq { grid-template-columns: 1fr; } }
@@ -279,7 +252,7 @@ fieldset.field { border: 0; padding: 0; margin: 0; }
 .chip { position: relative; }
 .chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
 .chip span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; font-size: .9rem; background: var(--field); transition: background .15s, border-color .15s, color .15s; pointer-events: none; }
-.chip input:checked + span { background: var(--navy); border-color: var(--navy); color: #f4f1e9; }
+.chip input:checked + span { background: var(--gold); border-color: var(--gold); color: #12355b; font-weight: 700; }
 .chip input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
 .form-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
 .form-foot small { color: var(--fg-3); max-width: 46ch; }
@@ -516,47 +489,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
     </div>
 
-    <!-- Estimator -->
-    <div class="est" id="estimate">
-      <div class="est-body">
-        <div>
-          <p class="eyebrow">Plan your month</p>
-          <h3>Estimate your monthly cost</h3>
-        </div>
-        <div class="est-row">
-          <span class="lbl" id="lbl-mem">18 Membership</span>
-          <label class="switch" title="Include membership"><input type="checkbox" id="est-member" checked aria-labelledby="lbl-mem"><span></span></label>
-          <span class="sub">$500 a month, 12-month commitment</span>
-        </div>
-        <div class="est-row">
-          <span class="lbl" id="lbl-lessons">Golf lessons per month</span>
-          <div class="stepper" role="group" aria-labelledby="lbl-lessons">
-            <button type="button" data-step="lessons" data-d="-1" aria-label="One fewer lesson">−</button>
-            <output id="est-lessons" aria-live="polite">0</output>
-            <button type="button" data-step="lessons" data-d="1" aria-label="One more lesson">+</button>
-          </div>
-          <span class="sub">$150 each, with the PGA professional</span>
-        </div>
-        <div class="est-row">
-          <span class="lbl" id="lbl-strength">Strength sessions per month</span>
-          <div class="stepper" role="group" aria-labelledby="lbl-strength">
-            <button type="button" data-step="strength" data-d="-1" aria-label="One fewer strength session">−</button>
-            <output id="est-strength" aria-live="polite">0</output>
-            <button type="button" data-step="strength" data-d="1" aria-label="One more strength session">+</button>
-          </div>
-          <span class="sub">$150 each, with the strength coach</span>
-        </div>
-      </div>
-      <div class="est-total">
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <span class="k">Estimated per month</span>
-          <span class="big" id="est-total">$500</span>
-          <ul class="est-lines" id="est-lines"></ul>
-        </div>
-        <button class="btn btn-gold" type="button" id="est-inquire">Inquire with this plan</button>
-        <p class="fine">Estimate only. Rehab, junior and team pricing is quoted on inquiry.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -670,48 +602,7 @@ var FORM_ENDPOINT = "https://formspree.io/f/mljbrran";
 var CONTACT_EMAIL = "";
 
 (function () {
-  var PRICE = { member: 500, lesson: 150, strength: 150 };
-  var est = { member: true, lessons: 0, strength: 0 };
   var $ = function (s) { return document.querySelector(s); };
-  var money = function (n) { return "$" + n.toLocaleString("en-US"); };
-
-  function renderEst() {
-    var lines = [];
-    var total = 0;
-    if (est.member) { lines.push(["Membership", PRICE.member]); total += PRICE.member; }
-    if (est.lessons) { lines.push([est.lessons + " × golf lesson", est.lessons * PRICE.lesson]); total += est.lessons * PRICE.lesson; }
-    if (est.strength) { lines.push([est.strength + " × strength session", est.strength * PRICE.strength]); total += est.strength * PRICE.strength; }
-    $("#est-lessons").textContent = est.lessons;
-    $("#est-strength").textContent = est.strength;
-    $("#est-total").innerHTML = money(total) + ' <small>/ mo</small>';
-    var ul = $("#est-lines"); ul.textContent = "";
-    if (!lines.length) lines.push(["Nothing selected", 0]);
-    lines.forEach(function (l) {
-      var li = document.createElement("li");
-      var a = document.createElement("span"); a.textContent = l[0];
-      var b = document.createElement("span"); b.textContent = money(l[1]);
-      li.append(a, b); ul.append(li);
-    });
-  }
-  $("#est-member").addEventListener("change", function (e) { est.member = e.target.checked; renderEst(); });
-  document.querySelectorAll("[data-step]").forEach(function (b) {
-    b.addEventListener("click", function () {
-      var k = b.dataset.step, d = +b.dataset.d;
-      est[k] = Math.max(0, Math.min(12, est[k] + d));
-      renderEst();
-    });
-  });
-  renderEst();
-
-  function estSummary() {
-    var parts = [];
-    if (est.member) parts.push("Membership");
-    if (est.lessons) parts.push(est.lessons + " lesson" + (est.lessons > 1 ? "s" : "") + "/mo");
-    if (est.strength) parts.push(est.strength + " strength session" + (est.strength > 1 ? "s" : "") + "/mo");
-    var total = (est.member ? PRICE.member : 0) + est.lessons * PRICE.lesson + est.strength * PRICE.strength;
-    return parts.length ? parts.join(", ") + " (est. " + money(total) + "/mo)" : "";
-  }
-
   // Jump to the form with an interest pre-selected
   function goInquire(interest, extra) {
     if (interest) {
@@ -727,13 +618,6 @@ var CONTACT_EMAIL = "";
   document.querySelectorAll("[data-interest]").forEach(function (el) {
     el.addEventListener("click", function (e) { e.preventDefault(); goInquire(el.dataset.interest); });
   });
-  $("#est-inquire").addEventListener("click", function () {
-    if (est.member) goInquire("Founding membership");
-    if (est.lessons) goInquire("Golf lessons");
-    if (est.strength) goInquire("Strength sessions");
-    goInquire(null, "Estimated plan: " + (estSummary() || "add-ons only"));
-  });
-
   // ----- Inquiry form -----
   var form = $("#inq-form");
   function setErr(id, msg, input) {
@@ -751,7 +635,6 @@ var CONTACT_EMAIL = "";
       handicap: fd.get("handicap") || "",
       when: fd.get("when") || "",
       message: (fd.get("message") || "").trim(),
-      plan: estSummary(),
       submittedAt: new Date().toISOString()
     };
   }
@@ -768,7 +651,7 @@ var CONTACT_EMAIL = "";
       "Name: " + d.name, "Email: " + d.email, "Phone: " + (d.phone || "—"),
       "Reach me by: " + d.contact, "Interested in: " + d.interests.join(", "),
       "Handicap: " + (d.handicap || "—"), "Trains most: " + (d.when || "—"),
-      d.plan ? "Estimated plan: " + d.plan : "", d.message ? "\n" + d.message : ""
+d.message ? "\n" + d.message : ""
     ].filter(Boolean).join("\n");
   }
 

@@ -2,7 +2,7 @@
 
 A single-page, dependency-free marketing site built from the 18 Golf pitch deck:
 the problem and solution, the facility, the 18 Method, the team, every pricing
-option (membership, add-ons, programs) with a monthly cost estimator, an FAQ, and
+option (membership, add-ons, programs), an FAQ, and
 a membership inquiry form.
 
 Open `index.html` in a browser, or deploy the `website/` folder to any static host
