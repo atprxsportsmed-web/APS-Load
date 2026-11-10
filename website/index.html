@@ -666,7 +666,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
    FORM_ENDPOINT: where inquiries are POSTed as JSON on your own host
    (for example a Formspree form URL like https://formspree.io/f/xxxxxxx).
    CONTACT_EMAIL: shown if no endpoint is set, so visitors can send it themselves. */
-var FORM_ENDPOINT = "";
+var FORM_ENDPOINT = "https://formspree.io/f/mljbrran";
 var CONTACT_EMAIL = "";
 
 (function () {
@@ -790,7 +790,7 @@ var CONTACT_EMAIL = "";
   }
   async function saveToEndpoint(d) {
     if (!FORM_ENDPOINT) return false;
-    var r = await fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(d) });
+    var r = await fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(Object.assign({ _subject: "Membership inquiry: " + d.name, _replyto: d.email }, d, { interests: d.interests.join(", ") })) });
     if (!r.ok) throw new Error("status " + r.status);
     return true;
   }
