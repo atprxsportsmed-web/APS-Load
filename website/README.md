@@ -25,4 +25,4 @@ summary of their inquiry.
 - Sample 18 Profile numbers in the hero are illustrative and labelled as such.
 - Strength coach, head pro and GM names are not yet listed.
 - Rehab, junior, team and club-partnership pricing shows "on inquiry".
-- Opening date (fall 2027) and the 25 founding slots come from the deck.
+- No opening date is shown yet. The 25 founding slots come from the deck.
