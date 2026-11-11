@@ -6,12 +6,12 @@
 <!--PAGE-->
 <title>18 Golf Performance Club</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="18 Golf Performance Club, downtown Chattanooga: hitting stations, golf-specific training, testing and recovery under one roof, open 24/7 to members.">
+<meta name="description" content="18 Golf Performance Club, downtown Chattanooga. Prepare the swing and the body that powers it. One place. One plan. Opening target fall 2027.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap">
 <style>
-/* Layout: alternating cream and navy bands like the deck; one editorial column, pricing as a ledger, inquiry form last. */
+/* Layout: alternating cream and navy bands like the deck; one editorial column, digital strength as a feature band, membership terms table, waitlist form last. */
 :root {
   --navy: #0f1c26;      /* deck dark */
   --navy-2: #16293a;    /* deck card on dark */
@@ -123,18 +123,13 @@ a { color: inherit; }
 .profile-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
 .profile-top h3 { font-size: 1.6rem; }
 .tag { font: 500 .7rem/1 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--band-fg-3); border: 1px solid #ffffff22; padding: 6px 9px; border-radius: 999px; white-space: nowrap; }
-.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #ffffff14; border-radius: 12px; overflow: hidden; }
-.metric { background: var(--band-card); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
-.metric b { font: 500 1.9rem/1 var(--display); font-variant-numeric: tabular-nums; color: var(--band-fg); }
-.metric small { font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--band-fg-3); }
-.metric i { font-style: normal; font-size: .8rem; color: #8fd0b3; }
-.bars { display: flex; flex-direction: column; gap: 10px; }
-.bar { display: grid; grid-template-columns: 110px 1fr 36px; align-items: center; gap: 12px; font-size: .82rem; color: var(--band-fg-2); }
-.bar-track { height: 6px; background: #ffffff14; border-radius: 3px; overflow: hidden; }
-.bar-fill { height: 100%; background: var(--gold); border-radius: 3px; transform-origin: left; animation: grow 1.2s cubic-bezier(.2,.7,.2,1) both; }
-.bar span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
-@keyframes grow { from { transform: scaleX(.15); } to { transform: scaleX(1); } }
-.profile-foot { font-size: .78rem; color: var(--band-fg-3); border-top: 1px solid #ffffff14; padding-top: 14px; }
+.timeline { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0; counter-reset: t; }
+.timeline li { counter-increment: t; display: grid; grid-template-columns: 34px 1fr; gap: 2px 12px; padding-block: 12px; border-top: 1px solid #ffffff14; }
+.timeline li:first-child { border-top: 0; }
+.timeline li::before { content: counter(t); grid-row: span 2; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); display: grid; place-items: center; font: 500 .85rem var(--body); }
+.timeline b { font: 500 1.2rem/1.2 var(--display); color: var(--band-fg); }
+.timeline span { font-size: .9rem; color: var(--band-fg-2); }
+.profile-foot { font: italic 400 1.15rem/1.35 var(--display); color: var(--gold); border-top: 1px solid #ffffff14; padding-top: 14px; }
 
 /* Problem / solution ledger */
 .ledger { border-top: 1px solid var(--line); }
@@ -157,7 +152,7 @@ a { color: inherit; }
 
 /* Method steps */
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: s; }
-.step { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.step { color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .step-k { font: 500 .75rem/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--eyebrow); }
 .step h3 { font-size: 1.55rem; }
 .step p { color: var(--fg-2); }
@@ -167,7 +162,7 @@ a { color: inherit; }
 
 /* Team */
 .team { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 20px; }
-.member { background: var(--band-card); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.member { color: var(--band-fg); background: var(--band-card); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .member h3 { font-size: 1.5rem; }
 .member .role { font: 500 .74rem/1.3 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
 .member p { color: var(--band-fg-2); font-size: .96rem; }
@@ -176,10 +171,10 @@ a { color: inherit; }
 @media (max-width: 560px) { .team { grid-template-columns: 1fr; } }
 
 /* Pricing */
-.price-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: stretch; }
+.price-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: start; }
+.band .plan { background: var(--band-card); border: 1px solid #ffffff1f; }
 @media (max-width: 900px) { .price-grid { grid-template-columns: 1fr; } }
 .plan { background: var(--navy); color: #f4f1e9; border-radius: 18px; padding: clamp(28px, 4vw, 44px); display: flex; flex-direction: column; gap: 22px; position: relative; overflow: hidden; min-width: 0; }
-.plan-badge { align-self: flex-start; font: 500 .72rem/1 var(--body); letter-spacing: .18em; text-transform: uppercase; background: var(--gold); color: #0f1c26; padding: 8px 12px; border-radius: 999px; }
 .plan h3 { font-size: 2rem; color: var(--gold); }
 .plan-price { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .plan-price b { font: 500 clamp(4rem, 6vw, 5.4rem)/0.9 var(--display); font-variant-numeric: tabular-nums; }
@@ -188,12 +183,8 @@ a { color: inherit; }
 .plan li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; color: #e6e0d2; }
 .plan li::before { content: ""; width: 14px; height: 14px; margin-top: 6px; border-radius: 50%; border: 2px solid var(--gold); }
 .plan-terms { font-size: .88rem; color: #9faab4; border-top: 1px solid #ffffff18; padding-top: 16px; }
-.cap { display: flex; flex-direction: column; gap: 8px; }
-.cap-track { height: 8px; border-radius: 4px; background: #ffffff18; overflow: hidden; display: flex; }
-.cap-track i { display: block; width: 25%; background: var(--gold); }
-.cap small { font-size: .82rem; color: #9faab4; }
 
-.compare { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(24px, 3.5vw, 40px); display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.compare { color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(24px, 3.5vw, 40px); display: flex; flex-direction: column; gap: 18px; min-width: 0; }
 .compare h3 { font-size: 1.6rem; }
 .compare table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 .compare td { padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--fg-2); vertical-align: top; }
@@ -201,21 +192,38 @@ a { color: inherit; }
 .compare tr.total td { border-bottom: 0; font-size: 1.2rem; color: var(--fg); font-weight: 700; }
 .compare tr.us td { border-bottom: 0; border-top: 2px solid var(--fg); color: var(--fg); font-weight: 700; font-size: 1.2rem; }
 .compare tr.us td:last-child { color: var(--eyebrow); }
+.plan-cap { font-weight: 700; color: var(--gold); }
+.terms th { text-align: left; font: 500 .75rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--fg-3); padding-bottom: 10px; border-bottom: 2px solid var(--fg); }
+.terms th:not(:first-child), .terms td:not(:first-child) { text-align: right; }
+.terms td { font-size: 1.15rem; }
+.terms td:first-child { color: var(--fg); font-weight: 500; }
 .compare .note { font-size: .85rem; color: var(--fg-3); }
 
 .addons-head { margin-top: clamp(48px, 6vw, 72px); margin-bottom: 22px; display: flex; flex-direction: column; gap: 10px; }
 .addons-head h3 { font-size: 1.9rem; }
-.addons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-@media (max-width: 900px) { .addons { grid-template-columns: 1fr 1fr; } }
+.addons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 1000px) { .addons { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .addons { grid-template-columns: 1fr; } }
 .addon { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 10px; background: var(--bg); min-width: 0; }
-.addon-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.addon-top { display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .addon h4 { margin: 0; font: 600 1.25rem/1.2 var(--display); }
 .addon .amt { font: 500 1.5rem/1 var(--display); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .addon .amt small { font: 400 .8rem var(--body); color: var(--fg-3); }
-.addon .amt.tbd { font: 500 .78rem/1.3 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--eyebrow); text-align: right; }
+.addon .amt.tbd { font: 500 .85rem/1.3 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--eyebrow); }
 .addon p { color: var(--fg-2); font-size: .95rem; flex: 1; }
 .linkbtn { align-self: flex-start; background: none; border: 0; padding: 4px 0; font: 500 .92rem var(--body); color: var(--eyebrow); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+
+/* Digital strength */
+.strength-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+@media (max-width: 900px) { .strength-grid { grid-template-columns: 1fr; } }
+.strength-copy { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.strength-copy h2 { font-size: var(--s-2); }
+.strength-copy p:not(.eyebrow) { color: var(--fg-2); font-size: 1.1rem; max-width: 60ch; }
+.strength-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; border-top: 2px solid var(--fg); min-width: 0; }
+.strength-list li { padding: 16px 0 16px 34px; border-bottom: 1px solid var(--line); position: relative; color: var(--fg-2); }
+.strength-list li::before { content: ""; position: absolute; left: 4px; top: 22px; width: 14px; height: 14px; border-radius: 50%; background: var(--gold); }
+.strength-list b { color: var(--fg); }
+.strength-close { grid-column: 1 / -1; font: italic 500 clamp(1.4rem, 1.5vw + 1rem, 2rem)/1.3 var(--display); color: var(--fg); border-left: 3px solid var(--gold); padding-left: 18px; }
 
 /* FAQ */
 .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
@@ -289,11 +297,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <nav class="nav-links" aria-label="Sections">
       <a href="#method">The method</a>
       <a href="#facility">Facility</a>
+      <a href="#strength">Digital strength</a>
       <a href="#team">Team</a>
-      <a href="#pricing">Pricing</a>
+      <a href="#membership">Membership</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-gold" href="#inquire">Inquire</a>
+    <a class="btn btn-gold" href="#inquire" data-interest="Membership waitlist">Join the waitlist</a>
   </div>
 </header>
 
@@ -303,66 +312,60 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 <section class="band hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow">Downtown Chattanooga · Founding members now forming</p>
-      <h1>Build the golfer <em>behind</em> the swing.</h1>
-      <p class="hero-sub">Practice, training, coaching and recovery under one roof, working from one plan, open on your time.</p>
+      <p class="eyebrow">Downtown Chattanooga · Opening target fall 2027</p>
+      <h1>Prepare the swing and the body that <em>powers</em> it.</h1>
+      <p class="hero-sub">One place. One plan.</p>
       <div class="hero-ctas">
-        <a class="btn btn-gold" href="#inquire" data-interest="Founding membership">Inquire about membership</a>
-        <a class="btn btn-ghost" href="#pricing">See pricing</a>
+        <a class="btn btn-gold" href="#inquire" data-interest="Membership waitlist">Join the founding-member waitlist</a>
+        <a class="btn btn-ghost" href="#inquire" data-interest="A question">Contact us</a>
       </div>
-      <p class="hero-facts"><span>24/7 member access</span><span>Membership capped at 100</span><span>$500 a month, all in</span></p>
+      <p class="hero-facts"><span>24/7 keycard or app access</span><span>Limited to 133 members</span><span>$500 a month, all in</span></p>
     </div>
 
-    <aside class="profile" aria-label="Sample 18 Profile">
+    <aside class="profile" aria-label="Your first 3 months">
       <div class="profile-top">
-        <h3>Your 18 Profile</h3>
-        <span class="tag">Sample · Retest wk 12</span>
+        <h3>Your first 3 months</h3>
+        <span class="tag">Every quarter</span>
       </div>
-      <div class="metrics">
-        <div class="metric"><small>Club speed</small><b>104 mph</b><i>+3.1 since baseline</i></div>
-        <div class="metric"><small>Carry, driver</small><b>251 yd</b><i>+9 since baseline</i></div>
-        <div class="metric"><small>Hip rotation</small><b>48°</b><i>+6° since baseline</i></div>
-        <div class="metric"><small>Ground force</small><b>1.6×</b><i>body weight, lead leg</i></div>
-      </div>
-      <div class="bars" aria-label="Sample focus areas">
-        <div class="bar"><span>Mobility</span><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div><span>72</span></div>
-        <div class="bar"><span>Strength</span><div class="bar-track"><div class="bar-fill" style="width:64%"></div></div><span>64</span></div>
-        <div class="bar"><span>Power</span><div class="bar-track"><div class="bar-fill" style="width:81%"></div></div><span>81</span></div>
-        <div class="bar"><span>Swing data</span><div class="bar-track"><div class="bar-fill" style="width:68%"></div></div><span>68</span></div>
-      </div>
-      <p class="profile-foot">Illustration only. Every member's profile is built from their own interview and testing, and shared with every pro on their team.</p>
+      <ol class="timeline">
+        <li><b>Interview</b><span>Your game, your goals, your schedule.</span></li>
+        <li><b>Testing</b><span>Range of motion, strength and power. Together, your 18 Profile.</span></li>
+        <li><b>Custom routine</b><span>Built from your 18 Profile, on the stations and the training floor.</span></li>
+        <li><b>Retest</b><span>At the end of the quarter, so you can see the change.</span></li>
+      </ol>
+      <p class="profile-foot">Give us 3 months to transform your game. You won't regret it.</p>
     </aside>
   </div>
 </section>
 
-<!-- Problem → solution -->
+<!-- Philosophy -->
 <section class="sec" id="why">
   <div class="wrap">
     <div class="head">
       <p class="eyebrow">Why 18</p>
-      <h2>Getting better at golf takes too much effort and too much guessing.</h2>
-      <p class="lede">Most golfers piece improvement together from a range, a gym, a coach and a rehab clinic that never talk to each other. We put the whole thing in one building.</p>
+      <h2>Specialists working as a team, on one connected plan.</h2>
+      <p class="lede">Most golfers piece improvement together from a range, a gym and a coach that never talk to each other. We put it in one building, with one plan, on your time.</p>
     </div>
     <div class="ledger">
       <div class="ledger-row">
         <span class="q">Where</span>
-        <h3><s>It's scattered</s>One building</h3>
-        <p>Five hitting stations with launch-monitor data, a functional training area built for golf and an active recovery space. Less time driving between places, more time getting better.</p>
+        <h3><s>Spread across town</s>One building</h3>
+        <p>Hitting stations, digital strength, a training floor, testing and recovery under one roof. Less time driving between places. More time getting better.</p>
       </div>
       <div class="ledger-row">
         <span class="q">Who</span>
-        <h3><s>It's siloed</s>One team</h3>
-        <p>A PGA professional, a strength coach and a clinician, each a specialist in their own area. They work together, and every plan is connected between them.</p>
+        <h3><s>Working alone</s>One team</h3>
+        <p>Specialists in golf, strength, and performance and clinical testing. Each works in their own discipline, and every plan is connected between them.</p>
       </div>
       <div class="ledger-row">
         <span class="q">What</span>
-        <h3><s>It's guesswork</s>One plan</h3>
-        <p>Every member starts with an interview and testing: your 18 Profile. You get a custom routine, and we retest every 3 months so you can see your progress.</p>
+        <h3><s>Guesswork</s>One plan</h3>
+        <p>Every member starts with an interview and testing: your 18 Profile. You get a custom routine, and we retest every 3 months.</p>
       </div>
       <div class="ledger-row">
         <span class="q">When</span>
-        <h3><s>It's on someone else's schedule</s>Your time</h3>
-        <p>Members have 24/7 keycard access. Before work, after work, weekends. No appointment hours to fit around.</p>
+        <h3><s>Someone else's schedule</s>Your time</h3>
+        <p>Members get in 24/7 by keycard or phone app. Before work, after work, weekends.</p>
       </div>
     </div>
   </div>
@@ -373,130 +376,135 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <div class="wrap">
     <div class="head">
       <p class="eyebrow">The facility</p>
-      <h2>Everything you need to prepare the swing and the body that powers it.</h2>
+      <h2>About 3,000 square feet, built for golf.</h2>
     </div>
     <div class="facility">
-      <div class="fac"><span class="fac-n">5</span><h3>Hitting stations</h3><p>Launch-monitor data on every station, open 24/7. Every swing is measured and tracked, so you see what's changing and why.</p></div>
-      <div class="fac"><span class="fac-n">3</span><h3>Digital strength stations</h3><p>Adaptive strength stations that log load and progress, beside a functional training area built for golf.</p></div>
-      <div class="fac"><span class="fac-n">1</span><h3>Testing process</h3><p>State-of-the-art assessment tools and a structured process show where your body helps or limits your swing.</p></div>
-      <div class="fac"><span class="fac-n">24/7</span><h3>Warm-up and recovery</h3><p>Progress happens when you recover well. Members get premium warm-up and recovery tools, including Normatec.</p></div>
+      <div class="fac"><span class="fac-n">5</span><h3>Hitting stations</h3><p>Each with launch-monitor data, so you see what's changing in your swing.</p></div>
+      <div class="fac"><span class="fac-n">3</span><h3>Digital strength stations</h3><p>Tonal 2 smart strength systems that track every rep and adapt as you train.</p></div>
+      <div class="fac"><span class="fac-n">1</span><h3>Training floor</h3><p>A functional training tower, kettlebells, dumbbells and cables. No barbells.</p></div>
+      <div class="fac"><span class="fac-n">2</span><h3>Testing and recovery</h3><p>A testing and clinical area, and a recovery area with compression recovery.</p></div>
     </div>
-    <p class="facts-line">3,000 sq ft · downtown Chattanooga · keycard entry</p>
+    <p class="facts-line">Keycard or app access · cameras · waivers · minors only with a parent or coach · no front desk</p>
+  </div>
+</section>
+
+<!-- Digital strength -->
+<section class="sec strength" id="strength">
+  <div class="wrap strength-grid">
+    <div class="strength-copy">
+      <p class="eyebrow">Digital strength that adapts to every rep</p>
+      <h2>Digital strength: every rep tracked, every session adapting to you</h2>
+      <p>Strength training is where most golfers' plans fall apart. A generic routine can't tell whether you're fresh, tired, stronger than last month, or favoring one side. Our digital strength stations can.</p>
+      <p>Each station is a Tonal 2 smart strength system. Your 18 Profile becomes a routine built for your swing and your goals. Then the station measures every rep and responds to it. Resistance adjusts as you perform, so the load fits how you're moving at that moment, not how you moved last month.</p>
+    </div>
+    <ul class="strength-list">
+      <li><b>Built from your 18 Profile.</b> Exact routines for your goals, not a template.</li>
+      <li><b>Every rep tracked.</b> Load, speed and power are recorded, so progress is measured, not guessed.</li>
+      <li><b>Adapts in real time.</b> Resistance responds to your performance during the set.</li>
+      <li><b>Retested every 3 months.</b> Your numbers show what changed, and the routine updates with them.</li>
+      <li><b>Available 24/7.</b> High-level, individualized strength work on your schedule, any time of day, any day of the week.</li>
+    </ul>
+    <p class="strength-close">One place. One plan. A plan that adjusts to you on every rep.</p>
   </div>
 </section>
 
 <!-- Method -->
-<section class="sec" id="method">
+<section class="band sec" id="method">
   <div class="wrap">
     <div class="head">
       <p class="eyebrow">The 18 Method</p>
-      <h2>Know your body. Know your swing. Measure the change.</h2>
-      <p class="lede">Built by an expert in health and human performance, so you have the tools to play your best for as long as possible.</p>
+      <h2>Give us 3 months to transform your game. You won't regret it.</h2>
+      <p class="lede">Every membership runs on the same simple cycle. You're retested at the end of each quarter, so you can see the change.</p>
     </div>
     <div class="steps">
-      <div class="step"><span class="step-k">Week 0 · Test</span><h3>Your 18 Profile</h3><p>An interview and a full golf-specific assessment of how you move, how strong you are and how you swing. It shows where your body and your swing limit each other.</p></div>
-      <div class="step"><span class="step-k">Weeks 1–12 · Train</span><h3>Your custom routine</h3><p>A routine built from your profile, run on the hitting stations and the training floor whenever it suits you, with your pros working from the same plan.</p></div>
-      <div class="step"><span class="step-k">Week 12 · Retest</span><h3>See your progress</h3><p>We retest every 3 months, update your profile and adjust the plan. Progress you can see, not guess at.</p></div>
+      <div class="step"><span class="step-k">Start</span><h3>Interview and testing</h3><p>An intake interview, then range of motion, strength and power testing. Together, they make your 18 Profile.</p></div>
+      <div class="step"><span class="step-k">Weeks 1–12</span><h3>Your custom routine</h3><p>A routine built from your 18 Profile, on the hitting stations, the digital strength stations and the training floor, whenever it suits you.</p></div>
+      <div class="step"><span class="step-k">End of quarter</span><h3>Retest</h3><p>We retest, update your 18 Profile and adjust your routine for the next 3 months.</p></div>
     </div>
-    <p class="loop-note">Every tool feeds the same place: <b>your 18 Profile</b>, shared by every pro on your team.</p>
   </div>
 </section>
 
 <!-- Team -->
-<section class="band sec" id="team">
+<section class="sec" id="team">
   <div class="wrap">
     <div class="head">
       <p class="eyebrow">The team</p>
-      <h2>Clinical, strength and golf expertise on one floor.</h2>
+      <h2>Golf, strength and clinical expertise in one building.</h2>
     </div>
     <div class="team">
-      <div class="member lead"><h3>Jeremy Herum</h3><p class="role">Founder · MS, LAT, ATC, CSCS</p><p>Sports medicine clinician, strength specialist, performance coach and scratch golfer. Designs the 18 Profile and the retest process.</p></div>
-      <div class="member"><h3>Strength coach</h3><p class="role">Joining before opening</p><p>Builds each member's custom routine on the digital strength stations and leads training.</p></div>
-      <div class="member"><h3>Head golf professional</h3><p class="role">PGA professional</p><p>Leads lessons and junior programs, with swing data from the five stations feeding your 18 Profile.</p></div>
-      <div class="member"><h3>General manager</h3><p class="role">Member experience</p><p>Runs day-to-day operations and makes sure the building works for you.</p></div>
+      <div class="member lead"><h3>Jeremy Herum</h3><p class="role">Founder and CEO · MS, LAT, ATC, CSCS</p><p>Leads the 18 Profile.</p></div>
+      <div class="member"><h3>Strength coach</h3><p class="role">Strength and conditioning</p><p>Builds and coaches member routines on the digital strength stations and the training floor.</p></div>
+      <div class="member"><h3>PGA professional</h3><p class="role">To be announced</p><p>Leads golf instruction, using swing data from the hitting stations.</p></div>
+      <div class="member"><h3>General manager</h3><p class="role">Operations</p><p>Runs day-to-day operations, the member experience and social media.</p></div>
     </div>
   </div>
 </section>
 
-<!-- Pricing -->
-<section class="sec" id="pricing">
+<!-- Membership -->
+<section class="band sec" id="membership">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow">Membership and pricing</p>
-      <h2>One membership, all in. Add coaching when you want it.</h2>
-      <p class="lede">The membership costs about what the pieces cost on their own, with the connection built in.</p>
+      <p class="eyebrow">Membership</p>
+      <h2>One membership. $500 a month, all in.</h2>
+      <p class="lede">No tiers. Every membership starts with a 3-month commitment, and longer terms save money.</p>
     </div>
 
     <div class="price-grid">
       <article class="plan" aria-labelledby="plan-title">
-        <span class="plan-badge">Founding members now forming</span>
         <h3 id="plan-title">18 Membership</h3>
         <div class="plan-price"><b>$500</b><span>a month, all in</span></div>
         <ul>
-          <li>24/7 access to the hitting stations and training floor</li>
-          <li>Your 18 Profile assessment, included (a $250 value)</li>
-          <li>A custom routine, retested every 3 months</li>
-          <li>Warm-up and recovery tools, including Normatec</li>
-          <li>PGA, strength and clinical pros in the same building, working from one plan</li>
+          <li>Intake interview</li>
+          <li>Range of motion, strength and power testing: your 18 Profile</li>
+          <li>A custom routine built from your 18 Profile</li>
+          <li>A retest every 3 months</li>
+          <li>24/7 access to the hitting stations, digital strength stations, training floor and recovery area</li>
         </ul>
-        <div class="cap">
-          <div class="cap-track" aria-hidden="true"><i></i></div>
-          <small>Membership is capped at 100. The first 25 are founding members.</small>
-        </div>
-        <a class="btn btn-gold" href="#inquire" data-interest="Founding membership">Inquire about membership</a>
-        <p class="plan-terms">12-month commitment. Founding commitments are non-binding until the club opens.</p>
+        <p class="plan-cap">Limited to 133 members.</p>
+        <a class="btn btn-gold" href="#inquire" data-interest="Membership waitlist">Join the founding-member waitlist</a>
       </article>
 
-      <div class="compare">
-        <h3>What it costs today, separately</h3>
+      <div class="compare terms">
+        <h3>Choose your term</h3>
         <table>
-          <tr><td>Boutique gym, no golf-specific training</td><td>$150–$200</td></tr>
-          <tr><td>Simulator-only membership, limited booking</td><td>$229</td></tr>
-          <tr><td>Golf-specific testing every 3 months ($250 each)</td><td>≈ $83</td></tr>
-          <tr class="total"><td>Total per month</td><td>≈ $487</td></tr>
-          <tr class="us"><td>18 Golf Performance Club, all of it connected</td><td>$500</td></tr>
+          <tr><th>Term</th><th>Monthly</th><th>Savings</th></tr>
+          <tr><td>3 months</td><td>$500</td><td>—</td></tr>
+          <tr><td>6 months</td><td>$475</td><td>5% off</td></tr>
+          <tr><td>12 months</td><td>$450</td><td>10% off</td></tr>
         </table>
-        <p class="note">Three places, three providers, no shared plan, business hours. Separate prices are local estimates.</p>
+        <p class="note">Every membership is at least a 3-month commitment. No payments or deposits are taken on this site.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="addons-head">
-      <p class="eyebrow">Add-ons and programs</p>
-      <h3>Work one-on-one with the team</h3>
+<!-- Training-only -->
+<section class="sec" id="sessions">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Training-only packages</p>
+      <h2>Work one-on-one with a specialist.</h2>
+      <p class="lede">Priced per hour. Training-only packages don't include facility access.</p>
     </div>
     <div class="addons">
       <div class="addon">
-        <div class="addon-top"><h4>Golf lesson</h4><span class="amt">$150 <small>/ session</small></span></div>
-        <p>One-on-one with the PGA professional, using your station data and your 18 Profile.</p>
-        <button class="linkbtn" type="button" data-interest="Golf lessons">Ask about lessons</button>
+        <div class="addon-top"><h4>Golf lesson with a PGA professional</h4><span class="amt">$175 <small>/ hour</small></span></div>
+        <button class="linkbtn" type="button" data-interest="Training-only sessions">Ask about lessons</button>
       </div>
       <div class="addon">
-        <div class="addon-top"><h4>Strength session</h4><span class="amt">$150 <small>/ session</small></span></div>
-        <p>Coached training with the strength coach, built around your routine and your retest goals.</p>
-        <button class="linkbtn" type="button" data-interest="Strength sessions">Ask about strength sessions</button>
+        <div class="addon-top"><h4>Performance and athletic therapy</h4><span class="amt">$199 <small>/ hour</small></span></div>
+        <button class="linkbtn" type="button" data-interest="Training-only sessions">Ask about therapy</button>
       </div>
       <div class="addon">
-        <div class="addon-top"><h4>Rehab and 1:1 training</h4><span class="amt tbd">Session or<br>package</span></div>
-        <p>Clinical care and one-on-one training with a licensed athletic trainer, by the session or in packages.</p>
-        <button class="linkbtn" type="button" data-interest="Rehab and 1:1 training">Ask about rehab</button>
+        <div class="addon-top"><h4>Personal training and strength coaching</h4><span class="amt">$150 <small>/ hour</small></span></div>
+        <button class="linkbtn" type="button" data-interest="Training-only sessions">Ask about training</button>
       </div>
       <div class="addon">
-        <div class="addon-top"><h4>Junior packages</h4><span class="amt tbd">Pricing<br>coming soon</span></div>
-        <p>Session packages for junior golfers. Minors train with a parent or coach present.</p>
-        <button class="linkbtn" type="button" data-interest="Junior packages">Join the junior list</button>
-      </div>
-      <div class="addon">
-        <div class="addon-top"><h4>Teams and schools</h4><span class="amt tbd">Custom</span></div>
-        <p>Testing and training programs for high school and college golf teams.</p>
-        <button class="linkbtn" type="button" data-interest="Team or school program">Ask about team programs</button>
-      </div>
-      <div class="addon">
-        <div class="addon-top"><h4>Club partnerships</h4><span class="amt tbd">Custom</span></div>
-        <p>Extra support for members of private golf clubs, working alongside your club's professionals.</p>
-        <button class="linkbtn" type="button" data-interest="Club partnership">Ask about partnerships</button>
+        <div class="addon-top"><h4>Juniors</h4><span class="amt tbd">Contact us</span></div>
+        <p>Session packages only. Minors train with a parent or coach present.</p>
+        <button class="linkbtn" type="button" data-interest="Junior sessions">Contact us about juniors</button>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -505,30 +513,32 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <div class="wrap">
     <div class="head">
       <p class="eyebrow">Questions</p>
-      <h2>Before you inquire</h2>
+      <h2>Before you join the list</h2>
     </div>
     <div class="faq">
-      <details><summary>When does the club open?</summary><p>We'll announce the opening date once it's set. Founding members hear first about the location, tours and the opening date.</p></details>
-      <details><summary>What does "founding member" mean?</summary><p>The first 25 members to commit before opening. Your spot is held when the club opens, and you're first in for your 18 Profile assessment. A founding commitment is non-binding until we open.</p></details>
-      <details><summary>How does 24/7 access work?</summary><p>Members get keycard entry at any hour. The building has cameras, and every member signs a waiver.</p></details>
-      <details><summary>Can juniors train here?</summary><p>Yes, through junior session packages. Minors train only with a parent or coach present.</p></details>
-      <details><summary>Is the 18 Profile only for low handicaps?</summary><p>No. The testing shows where your body helps or limits your swing at any level, and your routine starts from where you are.</p></details>
-      <details><summary>Why is there a membership cap?</summary><p>At 100 members you can always get on a station and your pros know your plan. The cap keeps it that way.</p></details>
+      <details><summary>When does the club open?</summary><p>Our target is fall 2027 (October or November) in downtown Chattanooga. It's a target, not a promise. People on the waitlist hear first when the date is set.</p></details>
+      <details><summary>What does joining the waitlist mean?</summary><p>You'll hear first about the opening, tours and membership. It's free, and no payment or deposit is taken.</p></details>
+      <details><summary>Why a 3-month commitment?</summary><p>That's one full cycle: interview and testing, a custom routine, then a retest at the end of the quarter so you can see the change.</p></details>
+      <details><summary>Can I save with a longer term?</summary><p>Yes. A 6-month term is 5% off the monthly price ($475 a month), and a 12-month term is 10% off ($450 a month).</p></details>
+      <details><summary>How does 24/7 access work?</summary><p>Members get in any time by keycard or phone app. There's no front desk. The building has cameras, and every member signs a waiver.</p></details>
+      <details><summary>Can juniors train here?</summary><p>Yes, through session packages. Minors train only with a parent or coach present. Contact us for details.</p></details>
+      <details><summary>Why is membership limited?</summary><p>Membership is limited to 133 members, so you can get on a station and your coaches know your plan.</p></details>
+      <details><summary>What if I only want lessons or coaching?</summary><p>Training-only packages are priced per hour and don't include facility access. See the training-only packages above.</p></details>
     </div>
   </div>
 </section>
 
-<!-- Inquiry -->
+<!-- Waitlist / contact -->
 <section class="band sec" id="inquire">
   <div class="wrap inq">
     <div class="inq-aside">
-      <p class="eyebrow">Membership inquiry</p>
-      <h2>Reserve a conversation about your spot.</h2>
-      <p class="lede">Tell us about your game and what you're interested in. We'll reach out personally.</p>
+      <p class="eyebrow">Founding-member waitlist</p>
+      <h2>Join the list. We'll be in touch.</h2>
+      <p class="lede">Tell us a little about your game. Have a question instead? Use the same form and choose "A question".</p>
       <ol>
-        <li><span><b>We get in touch</b>Within a few days, by email or phone, your choice.</span></li>
-        <li><span><b>A short call</b>About your game, your goals and the membership.</span></li>
-        <li><span><b>Hold your spot</b>A non-binding founding commitment, while spots last.</span></li>
+        <li><span><b>Join the list</b>Free. No payment or deposit.</span></li>
+        <li><span><b>Hear first</b>About the opening, tours and membership.</span></li>
+        <li><span><b>Talk with us</b>About your game and whether the club fits.</span></li>
       </ol>
     </div>
 
@@ -548,46 +558,39 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <input id="f-phone" name="phone" type="tel" autocomplete="tel">
       </div>
       <div class="field">
-        <label for="f-contact">Best way to reach you</label>
-        <select id="f-contact" name="contact">
-          <option>Email</option><option>Phone call</option><option>Text</option>
-        </select>
-      </div>
-      <fieldset class="field full">
-        <legend>I'm interested in</legend>
-        <div class="chips" id="chips">
-          <label class="chip"><input type="checkbox" name="interest" value="Founding membership"><span>Founding membership</span></label>
-          <label class="chip"><input type="checkbox" name="interest" value="Golf lessons"><span>Golf lessons</span></label>
-          <label class="chip"><input type="checkbox" name="interest" value="Strength sessions"><span>Strength sessions</span></label>
-          <label class="chip"><input type="checkbox" name="interest" value="Rehab and 1:1 training"><span>Rehab and 1:1 training</span></label>
-          <label class="chip"><input type="checkbox" name="interest" value="Junior packages"><span>Junior packages</span></label>
-          <label class="chip"><input type="checkbox" name="interest" value="Team or school program"><span>Team or school program</span></label>
-          <label class="chip"><input type="checkbox" name="interest" value="Club partnership"><span>Club partnership</span></label>
-        </div>
-        <span class="err" id="e-interest"></span>
-      </fieldset>
-      <div class="field">
-        <label for="f-hcp">Handicap <span class="opt">(optional)</span></label>
+        <label for="f-hcp">Handicap range <span class="opt">(optional)</span></label>
         <select id="f-hcp" name="handicap">
           <option value="">Choose one</option>
           <option>Plus or scratch</option><option>1–9</option><option>10–18</option><option>19+</option><option>Don't keep one</option>
         </select>
       </div>
-      <div class="field">
-        <label for="f-when">When would you train most?</label>
-        <select id="f-when" name="when">
-          <option value="">Choose one</option>
-          <option>Early morning</option><option>Midday</option><option>Evenings</option><option>Weekends</option><option>Whenever I can</option>
+      <div class="field full">
+        <label for="f-interest">I'm interested in</label>
+        <select id="f-interest" name="interest">
+          <option>Membership waitlist</option>
+          <option>Training-only sessions</option>
+          <option>Junior sessions</option>
+          <option>A question</option>
         </select>
       </div>
+      <fieldset class="field full">
+        <legend>What do you want to work on? <span class="opt">(optional)</span></legend>
+        <div class="chips" id="chips">
+          <label class="chip"><input type="checkbox" name="focus" value="Swing and ball-striking"><span>Swing and ball-striking</span></label>
+          <label class="chip"><input type="checkbox" name="focus" value="Strength and power"><span>Strength and power</span></label>
+          <label class="chip"><input type="checkbox" name="focus" value="Mobility"><span>Mobility</span></label>
+          <label class="chip"><input type="checkbox" name="focus" value="Consistency"><span>Consistency</span></label>
+          <label class="chip"><input type="checkbox" name="focus" value="Playing well for longer"><span>Playing well for longer</span></label>
+        </div>
+      </fieldset>
       <div class="field full">
-        <label for="f-msg">Anything we should know? <span class="opt">(optional)</span></label>
-        <textarea id="f-msg" name="message" placeholder="Goals, injuries you're working around, your home club, questions…"></textarea>
+        <label for="f-msg">Anything else? <span class="opt">(optional)</span></label>
+        <textarea id="f-msg" name="message" placeholder="Your goals, your home course, or your question."></textarea>
       </div>
       <div class="hp" aria-hidden="true"><label for="f-gotcha">Leave this field empty</label><input id="f-gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off" data-lpignore="true"></div>
       <div class="form-foot">
-        <small>We use your details only to follow up about membership. No spam, and no payment is taken.</small>
-        <button class="btn btn-gold" type="submit" id="f-submit">Send inquiry</button>
+        <small>We use your details only to follow up with you. No payment or deposit is taken.</small>
+        <button class="btn btn-gold" type="submit" id="f-submit">Join the waitlist</button>
         <p class="form-status" id="f-status" role="alert" hidden></p>
       </div>
     </form>
@@ -597,15 +600,15 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
 <dialog class="confirm" id="confirm" aria-labelledby="confirm-title">
   <div class="confirm-mark" aria-hidden="true">✓</div>
-  <h2 id="confirm-title">Inquiry received</h2>
-  <p id="confirm-text">Thank you for your interest in 18 Golf Performance Club. We'll be in touch within a few days.</p>
+  <h2 id="confirm-title">Received</h2>
+  <p id="confirm-text">Thank you. We'll be in touch.</p>
   <button class="btn btn-gold" type="button" id="confirm-close">Close</button>
 </dialog>
 
 <footer class="band">
   <div class="wrap">
-    <span>18 Golf Performance Club · Downtown Chattanooga, Tennessee</span>
-    <span>Prices subject to change</span>
+    <span>18 Golf Performance Club · Downtown Chattanooga, Tennessee · Opening target fall 2027</span>
+    <span>No payments or deposits are taken on this site. Tonal and Tonal 2 are trademarks of Tonal Systems, Inc.</span>
   </div>
 </footer>
 
@@ -621,7 +624,8 @@ var FORM_ENDPOINT = "https://formspree.io/f/mljbrran";
   // Jump to the form with an interest pre-selected
   function goInquire(interest, extra) {
     if (interest) {
-      document.querySelectorAll('#chips input').forEach(function (c) { if (c.value === interest) c.checked = true; });
+      $("#f-interest").value = interest;
+      $("#f-submit").textContent = submitLabel();
     }
     if (extra) {
       var m = $("#f-msg");
@@ -645,10 +649,9 @@ var FORM_ENDPOINT = "https://formspree.io/f/mljbrran";
       name: (fd.get("name") || "").trim(),
       email: (fd.get("email") || "").trim(),
       phone: (fd.get("phone") || "").trim(),
-      contact: fd.get("contact") || "",
-      interests: fd.getAll("interest"),
+      interest: fd.get("interest") || "",
       handicap: fd.get("handicap") || "",
-      when: fd.get("when") || "",
+      workOn: fd.getAll("focus"),
       message: (fd.get("message") || "").trim(),
       submittedAt: new Date().toISOString()
     };
@@ -657,7 +660,6 @@ var FORM_ENDPOINT = "https://formspree.io/f/mljbrran";
     var ok = true;
     if (!d.name) { setErr("name", "Enter your name.", $("#f-name")); ok = false; } else setErr("name", "", $("#f-name"));
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { setErr("email", "Enter an email address like name@example.com.", $("#f-email")); ok = false; } else setErr("email", "", $("#f-email"));
-    if (!d.interests.length) { setErr("interest", "Pick at least one option."); ok = false; } else setErr("interest", "");
     return ok;
   }
 
@@ -677,7 +679,7 @@ var FORM_ENDPOINT = "https://formspree.io/f/mljbrran";
     var ctrl = new AbortController();
     var timer = setTimeout(function () { ctrl.abort(); }, 20000);
     try {
-      var body = Object.assign({ _subject: "Membership inquiry: " + d.name, _replyto: d.email, _gotcha: $("#f-gotcha").value }, d, { interests: d.interests.join(", ") });
+      var body = Object.assign({ _subject: d.interest + ": " + d.name, _replyto: d.email, _gotcha: $("#f-gotcha").value }, d, { workOn: d.workOn.join(", ") });
       var r = await fetch(FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(body), signal: ctrl.signal });
       var res = await r.json().catch(function () { return {}; });
       if (!r.ok || res.ok === false) {
@@ -688,6 +690,8 @@ var FORM_ENDPOINT = "https://formspree.io/f/mljbrran";
     } finally { clearTimeout(timer); }
   }
 
+  function submitLabel() { return $("#f-interest").value === "A question" ? "Send message" : "Join the waitlist"; }
+  $("#f-interest").addEventListener("change", function () { $("#f-submit").textContent = submitLabel(); });
   var statusEl = $("#f-status");
   function showStatus(msg) { statusEl.textContent = msg || ""; statusEl.hidden = !msg; }
 
@@ -695,14 +699,17 @@ var FORM_ENDPOINT = "https://formspree.io/f/mljbrran";
   $("#confirm-close").addEventListener("click", function () { dialog.close(); });
   function showThanks(d) {
     var first = d.name.split(" ")[0];
-    $("#confirm-title").textContent = "Inquiry received";
-    $("#confirm-text").textContent = "Thank you, " + first + "! We've received your inquiry and will reach out by " + (d.contact === "Email" ? "email" : "phone") + " within a few days.";
+    var question = d.interest === "A question";
+    $("#confirm-title").textContent = question ? "Message received" : "You're on the list";
+    $("#confirm-text").textContent = question
+      ? "Thank you, " + first + ". We've received your message and will get back to you soon."
+      : "Thank you, " + first + ". We've received your details and will be in touch as opening gets closer. No payment or deposit is needed.";
     // Replace the form with a thank-you note so the confirmation stays on the page
     var wrap = document.createElement("div"); wrap.className = "done";
     var h = document.createElement("h3"); h.textContent = "Thank you, " + first + ".";
-    var p = document.createElement("p"); p.innerHTML = '<span class="status-ok">Your inquiry was received.</span> ';
-    p.append("We'll be in touch within a few days.");
-    var again = document.createElement("button"); again.type = "button"; again.className = "linkbtn"; again.textContent = "Send another inquiry";
+    var p = document.createElement("p"); p.innerHTML = '<span class="status-ok">Received.</span> ';
+    p.append(question ? "We'll get back to you soon." : "You're on the list. We'll be in touch as opening gets closer.");
+    var again = document.createElement("button"); again.type = "button"; again.className = "linkbtn"; again.textContent = "Send another message";
     again.addEventListener("click", function () { location.reload(); });
     wrap.append(h, p, again);
     form.replaceChildren(wrap);
@@ -715,7 +722,7 @@ var FORM_ENDPOINT = "https://formspree.io/f/mljbrran";
     showStatus("");
     var d = collect();
     if (!validate(d)) {
-      showStatus("Please fill in the highlighted fields: your name, a valid email and at least one interest.");
+      showStatus("Please fill in the highlighted fields: your name and a valid email.");
       var first = form.querySelector('[aria-invalid="true"]') || $("#chips input");
       first && first.focus();
       return;
@@ -726,9 +733,9 @@ var FORM_ENDPOINT = "https://formspree.io/f/mljbrran";
       saved = inClaude ? await saveToDb(d) : false;
       if (!saved) saved = await saveToEndpoint(d);
     } catch (err) { error = err; }
-    btn.disabled = false; btn.textContent = "Send inquiry";
+    btn.disabled = false; btn.textContent = submitLabel();
     if (!saved) {
-      showStatus("Your inquiry didn't go through" + (error && error.name !== "AbortError" && /^[A-Za-z]/.test(error.message) && error.message.indexOf("status") !== 0 ? " (" + error.message + ")" : "") + ". Check your connection and press Send inquiry again.");
+      showStatus("Your inquiry didn't go through" + (error && error.name !== "AbortError" && /^[A-Za-z]/.test(error.message) && error.message.indexOf("status") !== 0 ? " (" + error.message + ")" : "") + ". Check your connection and try again.");
       return;
     }
     showThanks(d);
